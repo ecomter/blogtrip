@@ -29,7 +29,7 @@
     <mdui-button-icon icon="map--outlined"></mdui-button-icon>
     <mdui-top-app-bar-title>ecomter 的站点</mdui-top-app-bar-title>
     <div style="flex-grow: 1"></div>
-    <mdui-button-icon icon="info--outlined"></mdui-button-icon>
+    <mdui-button-icon class="open-about-me" icon="info--outlined"></mdui-button-icon>
   </mdui-top-app-bar>
 
 </div>
@@ -56,15 +56,33 @@
       <mdui-icon slot="icon" name="book"></mdui-icon>
   <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon></mdui-button>
     </mdui-card>
+<mdui-dialog fullscreen icon="info" headline="关于" close-on-esc class="about-me">
+  <p style="font-size:27px">欢迎来到我的站点😆！<br /></p>
+  <p>本站仍在规划建设中，采用 mdui 2 元素，可能会出现若干 bug，自适应不完善等问题。<br \>当前建设进度：12%</p>
+  <mdui-linear-progress value="0.12"></mdui-linear-progress>
+  <h3>你可能会遇到的问题：</h3>
+  <li>博客加载后为空白页面<br>解决方案：刷新</li>
+  <li>无法跳转网页<br>解决方案：请开启 JavaScript 支持</li>
+  <p>   </p>如果你对本站的建设有什么好的建议，欢迎向我反馈（GitHub: easycomputer1）🤓
 
+  <mdui-button slot="action" class="close-about">好的，我知道了</mdui-button>
+</mdui-dialog>
     
   </div>
   <script>
-     mdui.setColorScheme('#228B22');
-const dialog = document.querySelector(".open-blog");
-  const openButton = dialog.nextElementSibling;
+     mdui.setColorScheme('#228B22')
+     
+const dialogGo = document.querySelector(".open-blog");
+  const openButtonGo = dialogGo.nextElementSibling;
 
-  openButton.addEventListener("click", () => dialog.open = true);
+  openButtonGo.addEventListener("click", () => dialogGo.open = true);
+
+  const dialogAb = document.querySelector(".about-me");
+  const openButtonAb = document.querySelector(".open-about-me");
+  const closeButtonAb = document.querySelector(".close-about");
+
+  openButtonAb.addEventListener("click", () => dialogAb.open = true);
+  closeButtonAb.addEventListener("click", () => dialogAb.open = false);
 
    </script>
 
