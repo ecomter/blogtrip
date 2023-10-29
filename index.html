@@ -1,155 +1,72 @@
 <!doctype html>
 
-<html lang="zh-cmn-Hans"> 
+<html lang="zh-CN"> 
 
  <head> 
 
   <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <link rel="stylesheet" href="https://unpkg.com/mdui@2.0.1/mdui.css">
+<script src="https://unpkg.com/mdui@2.0.1/mdui.global.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"> <!-- MDUI CSS --> 
 
-  <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css"> 
 
   <title>ecomter的博客</title> 
 
-<style>
-
-.head{
-
-                width: 100%;
-
-                height: 100px;
-
-                border-radius:20px;
-
-                line-height:300px;
-
-                display: -webkit-box;
-
-                margin-bottom:15px;
-
-                display: -moz-box;
-
-                display: -ms-flexbox;
-
-                display: -webkit-flex;
-
-                display: flex;
-
-                /*垂直居中*/
-
-                -webkit-box-align: center;/*旧版本*/
-
-                -moz-box-align: center;/*旧版本*/
-
-                -ms-flex-align: center;/*混合版本*/
-
-               -webkit-align-items: center;/*新版本*/
-
-                align-items: center;/*新版本*/
-
-       }
-
-</style>
 
  </head> 
 
- <body class=" mdui-theme-primary-light-green mdui-theme-layout-auto"> 
-
-  <div class="mdui-toolbar"> <span class="mdui-typo-title"> ecomter 的博客 </span> 
-
-   <div class="mdui-toolbar-spacer"></div> <a href="javascript:;" class="mdui-btn mdui-btn-icon"> <i mdui-dialog="{target: '#About'}" class="mdui-icon material-icons">info</i> </a> 
-
-  </div>
-
-  <div class="mdui-p-a-1">
-
-  <div class="head mdui-color-theme-50">
-
-  <p style="margin:0px 10px;font-size:40px;font-weight:400;">&nbsp;导航站</p>
-
-  </div>
-
- <h1 style="margin:50px 20px;font-weight:600">链接</h1>
-
-  <div style="border-radius:20px;" class="head mdui-color-theme-50">
-
- 
-
-  <button onclick="window.location.href = ('https://blogs.ecomter.live')" mdui-dialog="{target: '#Gotoblogs'}" class="mdui-btn mdui-btn-raised mdui-color-theme-200 mdui-ripple" style="margin:20px"> <i class="mdui-icon mdui-icon-left material-icons">book</i> 前往博客</button> 
-
-  <button onclick="window.location.href = ('https://old.ecomter.live')" mdui-dialog="{target: '#Gotoblogs'}" class="mdui-btn mdui-btn-raised mdui-color-theme-200 mdui-ripple"> <i class="mdui-icon mdui-icon-left material-icons">history</i> 旧版博客 </button> 
-
-  
-
-  </div>
-
-   <div style="border-radius:20px;" class="head mdui-color-theme-50"></div>
-
-  <div class="mdui-dialog mdui-color-theme-50" style="border-radius:15px;"id="Gotoblogs"> 
-
-   <div class="mdui-dialog-title">
-
-     正在跳转 
-
-   </div> 
-
-   <div class="mdui-dialog-content"> 
-
-    <p id="hitokoto_text">:D 获取中... </p> 
-
-    <script>
-
-  fetch('https://v1.hitokoto.cn')
-
-    .then(response => response.json())
-
-    .then(data => {
-
-      const hitokoto = document.querySelector('#hitokoto_text')
-
-      hitokoto.href = `https://hitokoto.cn/?uuid=${data.uuid}`
-
-      hitokoto.innerText = data.hitokoto
-
-    })
-
-    .catch(console.error)
-
-</script> 
-
-    <div class="mdui-spinner mdui-spinner-colorful"></div> 
-
-   </div> 
-
-   <div class="mdui-dialog-actions"> 
-
-   </div> 
-
+ <body>
    
-
-  </div>
-
-  </div> 
-
-   
-
-  <div class="mdui-dialog mdui-color-theme-50" id="About" style="border-radius:15px;">
-
-  <div class="mdui-dialog-content">
-
-    <p>ecomter 的导航站点<br />旧版博客已经停止更新</p>  
-
-  </div>
-
-  
+   <div>
+  <mdui-top-app-bar variant="medium"
+    scroll-behavior="shrink elevate"
+  >
+    <mdui-button-icon icon="map--outlined"></mdui-button-icon>
+    <mdui-top-app-bar-title>ecomter 的站点</mdui-top-app-bar-title>
+    <div style="flex-grow: 1"></div>
+    <mdui-button-icon icon="info--outlined"></mdui-button-icon>
+  </mdui-top-app-bar>
 
 </div>
+  <div class="object">
+    <mdui-card style="width:100%;height: 124px;padding:20px">
+      <mdui-dialog 
+      close-on-overlay-click 
+      class="open-blog"
+      headline="正在加载">
+    <p style="font-size:16px" id="hitokoto_text"><script>
+      fetch('https://v1.hitokoto.cn')
+  .then(response => response.json())
+  .then(data => {
+    const hitokoto = document.querySelector('#hitokoto_text')
+    hitokoto.href = `https://hitokoto.cn/?uuid=${data.uuid}`
+    hitokoto.innerText = data.hitokoto
+  })
+  .catch(console.error)
+    </script>
+</p>     <span><mdui-circular-progress></mdui-circular-progress></span>
 
-    </div>
+</mdui-dialog>
+      <mdui-button onclick="window.location.href='https://blog.ecomter.eu.org'">博客链接
+      <mdui-icon slot="icon" name="book"></mdui-icon>
+  <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon></mdui-button>
+    </mdui-card>
 
-  <script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js" integrity="sha384-gCMZcshYKOGRX9r6wbDrvF+TcCCswSHFucUzUPwka+Gr+uHgjlYvkABr95TCOz3A" crossorigin="anonymous"></script> 
+    
+  </div>
+  <script>
+     mdui.setColorScheme('#228B22');
+const dialog = document.querySelector(".open-blog");
+  const openButton = dialog.nextElementSibling;
 
- </body>
+  openButton.addEventListener("click", () => dialog.open = true);
 
+   </script>
+
+</body>
 </html>
