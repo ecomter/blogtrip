@@ -34,7 +34,7 @@
 
 </div>
   <div class="object">
-    <mdui-card style="width:100%;height: 124px;padding:20px">
+    <mdui-card style="width:100%;height: 140px;padding:20px">
       <mdui-dialog 
       close-on-overlay-click 
       class="open-blog"
@@ -55,17 +55,20 @@
       <mdui-button onclick="window.location.href='https://blog.ecomter.site'">博客链接
       <mdui-icon slot="icon" name="book"></mdui-icon>
   <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon></mdui-button>
+  &nbsp;<br \>&nbsp;<br \>
+  <mdui-chip elevated>最新文章：Android api 版本列表</mdui-chip>
     </mdui-card>
 <mdui-dialog fullscreen icon="info" headline="关于" close-on-esc class="about-me">
+  <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
+    <mdui-chip elevated icon="access_time--outlined">2023-11-04</mdui-chip>
+  <mdui-chip elevated icon="adf_scanner--outlined">托管于 neylify</mdui-chip>
   <p style="font-size:27px">欢迎来到我的站点😆！<br /></p>
-  <p>本站仍在规划建设中，采用 mdui 2 元素，可能会出现若干 bug，自适应不完善等问题。<br \>当前建设进度：14%</p>
-  <mdui-linear-progress value="0.14"></mdui-linear-progress>
-  <p>新版特色：主题色随机生成</p>
-  <h3>你可能会遇到的问题：</h3>
-  <li>博客加载后为空白页面<br>解决方案：刷新</li>
-  <li>无法跳转网页<br>解决方案：请开启 JavaScript 支持</li>
-  <p>   </p>如果你对本站的建设有什么好的建议，欢迎向我反馈（GitHub: easycomputer1）🤓
+    <mdui-linear-progress value="0.17"></mdui-linear-progress>
 
+  <p>当前页面建设进度：17%（添加 clip 组件）</p>
+  如有出现网页空白问题，请刷新重试，并开启 JavaScript 支持。
+<h4>&nbsp;</h4>
+<mdui-button slot="action" variant="text" onclick="window.location.href='https://github.com/easycomputer1'">反馈</mdui-button>
   <mdui-button slot="action" class="close-about">好的，我知道了</mdui-button>
 </mdui-dialog>
     
