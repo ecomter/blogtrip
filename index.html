@@ -19,7 +19,10 @@
 
 
  </head> 
+<script type="text/javascript">
+  
 
+</script>
  <body>
    
    <div>
@@ -58,14 +61,33 @@
   &nbsp;<br \>&nbsp;<br \>
   <mdui-chip elevated>最新文章：Android api 版本列表</mdui-chip>
     </mdui-card>
+<mdui-card style="width:100%;height: 140px;padding:20px">
+现在<span id="WeatherCITY"></span>的气温是&nbsp;<span id="WeatherTEM"></span>&nbsp;°C（根据 ip 定位）
+  <script>
+
+  function getID (url) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, false);
+  xhr.send();
+  var textR=JSON.parse(xhr.responseText);
+return textR;
+  }
+  var textCity= getID("https://restapi.amap.com/v3/ip?&key=0c2cc805e5a64e22c21334f6fc2b5d8f")
+  var city=textCity.adcode;
+ var textR = getID("https://restapi.amap.com/v3/weather/weatherInfo?city="+city+"&key=0c2cc805e5a64e22c21334f6fc2b5d8f")
+document.getElementById('WeatherCITY').innerHTML=textR.lives[0].city;
+document.getElementById('WeatherTEM').innerHTML=textR.lives[0].temperature;
+  </script>
+  
+</mdui-card>
 <mdui-dialog fullscreen icon="info" headline="关于" close-on-esc class="about-me">
   <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
     <mdui-chip elevated icon="access_time--outlined">2023-11-04</mdui-chip>
   <mdui-chip elevated icon="adf_scanner--outlined">托管于 neylify</mdui-chip>
   <p style="font-size:27px">欢迎来到我的站点😆！<br /></p>
-    <mdui-linear-progress value="0.17"></mdui-linear-progress>
+    <mdui-linear-progress value="0.19"></mdui-linear-progress>
 
-  <p>当前页面建设进度：17%（添加 clip 组件）</p>
+  <p>当前页面建设进度：19%（添加天气报道）</p>
   如有出现网页空白问题，请刷新重试，并开启 JavaScript 支持。
 <h4>&nbsp;</h4>
 <mdui-button slot="action" variant="text" onclick="window.location.href='https://github.com/easycomputer1'">反馈</mdui-button>
