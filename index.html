@@ -57,12 +57,14 @@
 </mdui-dialog>
       <mdui-button onclick="window.location.href='https://blog.ecomter.site'">博客链接
       <mdui-icon slot="icon" name="book"></mdui-icon>
-  <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon></mdui-button>
+  <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
+  <mdui-badge>新版</mdui-badge>
+  </mdui-button>
   &nbsp;<br \>&nbsp;<br \>
   <mdui-chip elevated>最新文章：Android api 版本列表</mdui-chip>
     </mdui-card>
 <mdui-card style="width:100%;height: 140px;padding:20px">
-现在<span id="WeatherCITY"></span>的气温是&nbsp;<span id="WeatherTEM"></span>&nbsp;°C（根据 ip 定位）
+<p id="weather"></p>
   <script>
 
   function getID (url) {
@@ -75,8 +77,7 @@ return textR;
   var textCity= getID("https://restapi.amap.com/v3/ip?&key=0c2cc805e5a64e22c21334f6fc2b5d8f")
   var city=textCity.adcode;
  var textR = getID("https://restapi.amap.com/v3/weather/weatherInfo?city="+city+"&key=0c2cc805e5a64e22c21334f6fc2b5d8f")
-document.getElementById('WeatherCITY').innerHTML=textR.lives[0].city;
-document.getElementById('WeatherTEM').innerHTML=textR.lives[0].temperature;
+document.getElementById('weather').innerHTML="当前"+textR.lives[0].city+"的气温是 "+textR.lives[0].temperature+" °C";
   </script>
   
 </mdui-card>
