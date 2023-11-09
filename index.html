@@ -17,7 +17,20 @@
 
   <title>ecomter的博客</title> 
 
-
+<style>
+  @media screen and (max-width:1000px) {
+  mdui-card {
+    width:100% !important;
+    margin:5px 0px 10px 0px !important;
+  }
+  #info {
+    position:fixed;
+    position:absolute;
+    right:1em;
+    bottom:2em;
+    padding:4px;
+  }
+</style>
  </head> 
 <script type="text/javascript">
   
@@ -32,12 +45,11 @@
     <mdui-button-icon icon="map--outlined"></mdui-button-icon>
     <mdui-top-app-bar-title>ecomter 的站点</mdui-top-app-bar-title>
     <div style="flex-grow: 1"></div>
-    <mdui-button-icon class="open-about-me" icon="info--outlined"></mdui-button-icon>
+    <mdui-button-icon onclick="javascript:location.reload();" icon="refresh--outlined"></mdui-button-icon>
   </mdui-top-app-bar>
-
 </div>
   <div class="object">
-    <mdui-card style="width:100%;height: 140px;padding:20px">
+    <mdui-card clickable style="width:48%;height: 140px;padding:20px;float:left;margin-right:10px;">
       <mdui-dialog 
       close-on-overlay-click 
       class="open-blog"
@@ -63,7 +75,7 @@
   &nbsp;<br \>&nbsp;<br \>
   <mdui-chip elevated>最新文章：Android api 版本列表</mdui-chip>
     </mdui-card>
-<mdui-card style="width:100%;height: 140px;padding:20px">
+<mdui-card clickable style="width:48%;height: 140px;padding:20px;float:left;margin-left:10px">
 <p id="weather"></p>
   <script>
 
@@ -83,18 +95,22 @@ document.getElementById('weather').innerHTML="当前"+textR.lives[0].city+"的�
 </mdui-card>
 <mdui-dialog fullscreen icon="info" headline="关于" close-on-esc class="about-me">
   <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
-    <mdui-chip elevated icon="access_time--outlined">2023-11-04</mdui-chip>
+    <mdui-chip elevated icon="access_time--outlined">2023-11-09</mdui-chip>
   <mdui-chip elevated icon="adf_scanner--outlined">托管于 neylify</mdui-chip>
   <p style="font-size:27px">欢迎来到我的站点😆！<br /></p>
-    <mdui-linear-progress value="0.19"></mdui-linear-progress>
+    <p>当前页面建设：基础进度已完成</p>
 
-  <p>当前页面建设进度：19%（添加天气报道）</p>
+    <mdui-linear-progress value="0.30"></mdui-linear-progress>
+<br>&nbsp;<br>
   如有出现网页空白问题，请刷新重试，并开启 JavaScript 支持。
 <h4>&nbsp;</h4>
 <mdui-button slot="action" variant="text" onclick="window.location.href='https://github.com/easycomputer1'">反馈</mdui-button>
   <mdui-button slot="action" class="close-about">好的，我知道了</mdui-button>
 </mdui-dialog>
     
+  </div>
+  <div style="text-align:center;">
+  <mdui-fab extended class="open-about-me " id="info" style="float:mid;margin-top:50px" icon="info--outlined">关于</mdui-fab>
   </div>
   <script>
 
