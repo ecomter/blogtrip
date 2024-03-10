@@ -1,33 +1,27 @@
 <!doctype html>
 
 <html lang="zh-CN"> 
-
- <head> 
-
-<meta name="google-adsense-account" content="ca-pub-6393990555447663">
+<head> 
+  <meta name="google-adsense-account" content="ca-pub-6393990555447663">
   <meta charset="utf-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
     <meta name="renderer" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <link rel="stylesheet" href="mdui.css">
-<script src="mdui.global.js"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
-<meta name="msvalidate.01" content="9F5F383FD7A89E01B474C9C829CBB05C" />
-
+  <link rel="stylesheet" href="mdui/mdui.css">
+  <script src="mdui/mdui.global.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <title>ecomter 的小博客-导航站</title>
   <meta http-equiv=Content-Language content=zh-cn>
   <meta charset="UTF-8">
   <meta http-equiv=”Content-Type” content=”text/html; charset=gb2312″>
-  <meta name=”keywords” content=” 个人博客,电脑技术,ecomter”> 
+  <meta name="keywords" content=" 个人博客,电脑技术,ecomter"> 
   <meta name=”description” content=”欢迎来到 ecomter 的小博客，这里是基于 mdui 2 的导航站点，目前还提供天气查询服务呐。我的博客平时会分享一些电脑科技的文章，目前我已经掌握了 C# 和 Python 两门语言。快来看看吧！”>
   <meta name="HandheldFriendly" content="true">
   <meta name="x5-page-mode" content="app">
   <meta name="MobileOptimized" content="320">
   <meta name="author" contect="ecomter">
   <link rel="Shortcut Icon" href="https://img.tucang.cc/api/image/show/a001aa38ca2efa75cbaa0cef24f9e364" type="image/x-icon" />
-<script>    (function(c,l,a,r,i,t,y){        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);    })(window, document, "clarity", "script", "jy5frzy24k");</script>
 <style>
   @media screen and (max-width:800px) {
   mdui-card {
@@ -41,27 +35,24 @@
     bottom:2em;
     padding:4px;
   }
+  }
 </style>
  </head> 
-<script type="text/javascript">
-  
-
-</script>
  <body>
    
-   <div>
+<div>
   <mdui-top-app-bar variant="small"
     scroll-behavior="shrink elevate"
-  >
+    scroll-target=".object">
     <mdui-button-icon icon="map--outlined"></mdui-button-icon>
-    <mdui-top-app-bar-title>ecomter 的站点<mdui-badge>beta</mdui-badge></mdui-top-app-bar-title>
+    <mdui-top-app-bar-title>ecomter<mdui-badge>beta</mdui-badge></mdui-top-app-bar-title>
     <div style="flex-grow: 1"></div>
     <mdui-button-icon onclick="javascript:location.reload();" icon="refresh--outlined"></mdui-button-icon>
   </mdui-top-app-bar>
 </div>
   <div class="object">
-    <h1 style="font-weight:10">导航列表</h1>
-    <mdui-card clickable style="width:48%;height: 170px;padding:20px;float:left;margin-right:10px;">
+    <h1 style="font-weight:100">导航列表</h1>
+    <mdui-card style="width:48%;height: 170px;padding:20px;float:left;margin-right:10px;">
       <mdui-dialog 
       close-on-overlay-click 
       class="open-blog"
@@ -79,12 +70,16 @@
 </p>     <span><mdui-circular-progress></mdui-circular-progress></span>
 
 </mdui-dialog>
-      <mdui-button onclick="window.location.href='https://blog.ecomter.site'">博客链接
-      <mdui-icon slot="icon" name="book"></mdui-icon>
+      
+  <mdui-button onclick="window.location.href='https://blog.ecomter.site'">博客链接
+  <mdui-icon slot="icon" name="book"></mdui-icon>
   <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
-  
   </mdui-button>
-  &nbsp;<br \>&nbsp;<br \>
+  <mdui-button onclick="window.location.href='https://blog.ecomter.site'">MCChatClub(计划中)
+  <mdui-icon slot="icon" name="message--outlined"></mdui-icon>
+  <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
+  </mdui-button>
+  &nbsp;<br \>
   <mdui-chip elevated>来如风雨，去似微尘</mdui-chip>
     </mdui-card>
 <mdui-card clickable style="width:48%;height: 170px;padding:20px;float:left;margin-left:10px">
@@ -111,15 +106,12 @@ document.getElementById('weather').innerHTML=textR.lives[0].city+"（ip 定位�
 <mdui-dialog fullscreen icon="info" headline="关于" close-on-esc class="about-me">
   <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
     <mdui-chip elevated icon="access_time--outlined">版本: 24P1</mdui-chip>
-  <mdui-chip elevated icon="adf_scanner--outlined">Azure 强力驱动</mdui-chip>
-  <p style="font-size:27px">欢迎来到我的站点😆！<br /></p>
-    <p>当前页面建设：基础进度已完成</p>
-
-    <mdui-linear-progress value="0.35"></mdui-linear-progress>
-<br>&nbsp;<br>
-  如有出现网页空白问题，请刷新重试，并开启 JavaScript 支持。
-<h4>&nbsp;</h4>
-<mdui-button slot="action" variant="text" onclick="window.location.href='https://github.com/easycomputer1'">反馈</mdui-button>
+  <mdui-chip elevated icon="adf_scanner--outlined">Azure 驱动</mdui-chip>
+  <p style="font-size:27px">欢迎来到我的站点😆<br /></p>
+    <p>（站点仍在不断建设中呐，期待大家的反馈）</p>
+    <mdui-linear-progress value="0.40"></mdui-linear-progress>
+    
+<mdui-button slot="action" variant="text" onclick="window.location.href='https://github.com/easycomputer1'">去反馈</mdui-button>
   <mdui-button slot="action" class="close-about">好的，我知道了</mdui-button>
 </mdui-dialog>
     
@@ -129,7 +121,7 @@ document.getElementById('weather').innerHTML=textR.lives[0].city+"（ip 定位�
   </div>
   <script>
 
-     mdui.setColorScheme("#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0"))
+ mdui.setColorScheme("#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0"))
      
 const dialogGo = document.querySelector(".open-blog");
   const openButtonGo = dialogGo.nextElementSibling;
