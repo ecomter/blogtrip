@@ -11,12 +11,12 @@
   <script src="mdui/mdui.global.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-  <title>ecomter 的小博客-导航站</title>
+  <title>ecomter的小博客-导航站</title>
   <meta http-equiv=Content-Language content=zh-cn>
   <meta charset="UTF-8">
   <meta http-equiv=”Content-Type” content=”text/html; charset=gb2312″>
-  <meta name="keywords" content=" 个人博客,电脑技术,ecomter">   <meta name=”description” content=”这里是ecomter的博客导航站点哦！海内存知己，天涯若比邻。来如风雨，去似微尘，博客虽小，五脏俱全。我会在这里发布一些信息技术日常小技巧和技术信息，欢迎诸位阅读新文章！”>
-
+  <meta name="keywords" content=" 个人博客,电脑技术,ecomter"> 
+  <meta name=”description” content=”这里是ecomter的博客导航站点哦！海内存知己，天涯若比邻。来如风雨，去似微尘，博客虽小，五脏俱全。我会在这里发布一些信息技术日常小技巧和技术信息，欢迎诸位阅读新文章！”>
   <meta name="HandheldFriendly" content="true">
   <meta name="x5-page-mode" content="app">
   <meta name="MobileOptimized" content="320">
@@ -45,7 +45,7 @@
     scroll-behavior="shrink elevate"
     scroll-target=".object">
     <mdui-button-icon icon="map--outlined"></mdui-button-icon>
-    <mdui-top-app-bar-title>ecomter导航站<mdui-badge>beta</mdui-badge></mdui-top-app-bar-title>
+    <mdui-top-app-bar-title>ecomter 导航站<mdui-badge>全球版</mdui-badge></mdui-top-app-bar-title>
     <div style="flex-grow: 1"></div>
     <mdui-button-icon onclick="javascript:location.reload();" icon="refresh--outlined"></mdui-button-icon>
   </mdui-top-app-bar>
@@ -82,42 +82,16 @@
   &nbsp;<br \>
   <mdui-chip elevated>来如风雨，去似微尘</mdui-chip>
     </mdui-card>
-<mdui-card clickable style="width:48%;height: 170px;padding:20px;float:left;margin-left:10px">
-  <h2 id="temperature"></h2>
-<p id="weather"></p>
-  <script>
-
-  function getID (url) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", url, false);
-  xhr.send();
-  var textR=JSON.parse(xhr.responseText);
-return textR;
-  }
-  var textCity= getID("https://restapi.amap.com/v3/ip?&key=0c2cc805e5a64e22c21334f6fc2b5d8f")
-  var city=textCity.adcode;
- var textR = getID("https://restapi.amap.com/v3/weather/weatherInfo?city="+city+"&key=0c2cc805e5a64e22c21334f6fc2b5d8f")
-document.getElementById('temperature').innerHTML=textR.lives[0].temperature+" °C&nbsp;&nbsp;"+textR.lives[0].weather;
-document.getElementById('weather').innerHTML=textR.lives[0].city+"（ip 定位）";
-  </script>
-  
-</mdui-card>
-<mdui-button variant="text" icon="code" href="http://beian.miit.gov.cn">陇ICP备2024012998号-1</mdui-button>
 <br />
-<mdui-button variant="text" icon="code" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=62040202000475">甘公网安备62040202000475号</mdui-button>
-<br />
-
 <mdui-button variant="text" icon="functions" href="https://icp.gov.moe/?keyword=20220539">萌ICP备20220539号</mdui-button>
 <br />
 <mdui-dialog fullscreen icon="info" headline="关于" close-on-esc class="about-me">
   <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
     <mdui-chip elevated icon="access_time--outlined">24P4 版本</mdui-chip>
-  <mdui-chip elevated icon="adf_scanner--outlined">阿里云</mdui-chip> 
+  <mdui-chip elevated icon="adf_scanner--outlined">Azure Virtual Machine</mdui-chip>
   <p style="font-size:27px">欢迎大家来到我的站点😆<br /></p>
     <p>我会在这里发布一些信息日常小技巧和前瞻信息哦，现网站已支持全站 IPV6/IPV4 访问哦。</p>
     <p>Copyright ecomter 2022-2025</p>
-    
-
     <mdui-linear-progress value="0.40"></mdui-linear-progress>
     
 <mdui-button slot="action" variant="text" onclick="window.location.href='https://github.com/easycomputer1'">去反馈</mdui-button>
