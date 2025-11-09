@@ -1,0 +1,10 @@
+# robots.txt for ecomter site
+User-agent: *
+Allow: /
+
+# Block error pages
+Disallow: /404.html
+Disallow: /50x.html
+
+# Sitemap location (update to absolute URL in production)
+Sitemap: sitemap.xml

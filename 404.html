@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>页面走丢了 · 404</title>
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="description" content="未找到页面 (404)。请返回首页或上一页。">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="页面走丢了 · 404">
+		<meta property="og:locale" content="zh_CN">
+		<link rel="stylesheet" href="mdui/mdui.css" />
+		<script src="mdui/mdui.global.js"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+		<style>
+			body {
+				margin: 0;
+				font-family: "Roboto", "Noto Sans SC", "Segoe UI", sans-serif;
+				background: linear-gradient(180deg, rgba(var(--mdui-color-surface-container-low), 1) 0%, rgba(var(--mdui-color-surface), 1) 100%);
+				color: rgb(var(--mdui-color-on-surface));
+				min-height: 100vh;
+			}
+
+			.shell {
+				display: grid;
+				grid-template-rows: auto 1fr;
+				min-height: 100vh;
+			}
+
+			.app-bar {
+				backdrop-filter: blur(8px);
+				background: linear-gradient(180deg, rgba(var(--mdui-color-surface-container-highest), 0.86) 0%, rgba(var(--mdui-color-surface), 0.9) 100%);
+				border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 0.4);
+				box-shadow: var(--mdui-elevation-level1);
+			}
+
+			.content {
+				display: grid;
+				place-items: center;
+				padding: 32px 24px 48px;
+			}
+
+			.card {
+				width: 100%;
+				max-width: 720px;
+				padding: 28px;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+				border-radius: var(--mdui-shape-corner-large);
+				background-color: rgb(var(--mdui-color-surface-container-high));
+				box-shadow: var(--mdui-elevation-level2);
+			}
+
+			.headline {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				margin: 0;
+				font-size: var(--mdui-typescale-headline-medium-size);
+				line-height: var(--mdui-typescale-headline-medium-line-height);
+				font-weight: var(--mdui-typescale-headline-medium-weight);
+				color: rgb(var(--mdui-color-on-surface));
+			}
+
+			.desc {
+				margin: 0;
+				color: rgb(var(--mdui-color-on-surface-variant));
+			}
+
+			.actions {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+				gap: 12px;
+				margin-top: 8px;
+			}
+
+			.footer {
+				margin-top: 8px;
+				color: rgb(var(--mdui-color-on-surface-variant));
+				font-size: var(--mdui-typescale-label-small-size);
+			}
+		</style>
+	</head>
+	<body class="mdui-theme-auto">
+		<div class="shell">
+			<mdui-top-app-bar class="app-bar" variant="small">
+				<mdui-button-icon icon="arrow_back" onclick="history.back()"></mdui-button-icon>
+				<mdui-top-app-bar-title>页面未找到</mdui-top-app-bar-title>
+				<div style="flex:1"></div>
+				<mdui-button-icon icon="home" onclick="location.href='index.html'"></mdui-button-icon>
+			</mdui-top-app-bar>
+
+			<main class="content">
+				<mdui-card class="card">
+					<div class="headline">
+						<mdui-icon name="travel_explore"></mdui-icon>
+						<span>这里什么也没有（404）</span>
+					</div>
+					<p class="desc">链接可能已失效，或被移动到其他位置。您可以尝试返回上一页，或回到首页寻找内容。</p>
+
+					<div class="actions">
+						<mdui-button variant="filled" onclick="location.href='index.html'">
+							<mdui-icon slot="icon" name="home"></mdui-icon>
+							回到首页
+						</mdui-button>
+						<mdui-button variant="tonal" onclick="history.back()">
+							<mdui-icon slot="icon" name="arrow_back"></mdui-icon>
+							返回上一页
+						</mdui-button>
+						<mdui-button variant="outlined" href="mailto:t1472580369@outlook.com" target="_blank">
+							<mdui-icon slot="icon" name="bug_report"></mdui-icon>
+							反馈问题
+						</mdui-button>
+					</div>
+
+					<mdui-divider></mdui-divider>
+					<div class="footer">
+						<mdui-icon name="info"></mdui-icon>
+						若这是站内链接，请把出错链接发给我；我会尽快修复。
+					</div>
+				</mdui-card>
+			</main>
+		</div>
+
+		<script>
+			// 使用随机主题色，保持与主页一致的活力风格
+			mdui.setColorScheme("#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0"));
+		</script>
+	</body>
+</html>
