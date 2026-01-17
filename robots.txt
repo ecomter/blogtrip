@@ -6,5 +6,5 @@ Allow: /
 Disallow: /404.html
 Disallow: /50x.html
 
-# Sitemap location (update to absolute URL in production)
-Sitemap: sitemap.xml
+# Sitemap location
+Sitemap: https://blog.cohelper.tech/sitemap.xml

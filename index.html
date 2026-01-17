@@ -5,33 +5,58 @@
   <meta name="google-adsense-account" content="ca-pub-6393990555447663">
   <meta charset="utf-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
-    <meta name="renderer" content="webkit"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="renderer" content="webkit"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <link rel="stylesheet" href="mdui/mdui.css">
   <script src="mdui/mdui.global.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-  <title>ecomter 的小博客 - 导航站</title>
-  <meta name="description" content="ecomter 的博客导航站点：收录个人博客、工具分享、技术教程与系统优化等内容，欢迎阅读与交流。">
-  <meta name="keywords" content="个人博客, 电脑技术, ecomter, 技术教程, 工具分享, 系统优化">
-  <meta name="robots" content="index, follow">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>ecomter 的小博客 - 导航站 | 技术教程与工具分享</title>
+  <meta name="description" content="ecomter 的博客导航站点：收录个人博客、工具分享、技术教程与系统优化等内容。访问 blog.cohelper.tech 获取更多精彩内容，欢迎阅读与交流。">
+  <meta name="keywords" content="个人博客, 电脑技术, ecomter, 技术教程, 工具分享, 系统优化, Windows优化, eComBox, cohelper, blog.cohelper.tech">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#6750A4">
-  <link rel="canonical" href="index.html">
+  <meta name="author" content="ecomter">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://blog.cohelper.tech/">
+  
+  <!-- Alternative Language/Site Links -->
+  <link rel="alternate" hreflang="zh-CN" href="https://blog.cohelper.tech/">
+  <link rel="me" href="https://blog.cohelper.tech/">
+  <link rel="author" href="https://blog.cohelper.tech/">
+  
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_CN">
-  <meta property="og:title" content="ecomter 的小博客 - 导航站">
-  <meta property="og:description" content="收录个人博客、工具分享、技术教程与系统优化等内容，欢迎阅读与交流。">
-  <meta property="og:url" content="index.html">
+  <meta property="og:title" content="ecomter 的小博客 - 导航站 | 技术教程与工具分享">
+  <meta property="og:description" content="ecomter 的博客导航站点：收录个人博客、工具分享、技术教程与系统优化等内容。访问 blog.cohelper.tech 获取更多精彩内容。">
+  <meta property="og:url" content="https://blog.cohelper.tech/">
   <meta property="og:site_name" content="ecomter 导航站">
   <meta property="og:image" content="https://img1.tucang.cc/api/image/show/7629efd7d505bf0150a6561ac7e29c0a">
- 
-  <!-- 清理重复或无效的 meta 标签：Content-Language、重复 charset、错误的 Content-Type、以及 Access-Control-Allow-Origin -->
+  <meta property="og:image:alt" content="ecomter 导航站">
+  <meta property="og:see_also" content="https://cohelper.tech/">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ecomter 的小博客 - 导航站">
+  <meta name="twitter:description" content="ecomter 的博客导航站点：收录个人博客、工具分享、技术教程与系统优化等内容，欢迎阅读与交流。">
+  <meta name="twitter:image" content="https://img1.tucang.cc/api/image/show/7629efd7d505bf0150a6561ac7e29c0a">
+  
+  <!-- Mobile Optimization -->
   <meta name="HandheldFriendly" content="true">
   <meta name="x5-page-mode" content="app">
   <meta name="MobileOptimized" content="320">
-  <meta name="author" content="ecomter">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ecomter导航站">
+  
+  <!-- Favicons -->
   <link rel="shortcut icon" href="https://img1.tucang.cc/api/image/show/7629efd7d505bf0150a6561ac7e29c0a" type="image/x-icon" />
   <link rel="icon" href="https://img1.tucang.cc/api/image/show/7629efd7d505bf0150a6561ac7e29c0a" type="image/x-icon">
+  <link rel="apple-touch-icon" href="https://img1.tucang.cc/api/image/show/7629efd7d505bf0150a6561ac7e29c0a">
 <style>
   body {
     margin: 0;
@@ -73,6 +98,28 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+  }
+
+  /* Search container styles */
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .search-container mdui-text-field {
+    flex: 1;
+    min-width: 280px;
+    max-width: 480px;
+  }
+
+  /* Quick links row */
+  .quick-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
   }
 
   .cards-grid {
@@ -221,8 +268,25 @@
 
   .page-footer {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(var(--mdui-color-outline-variant), 0.3);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
     justify-content: center;
-    padding-top: 8px;
+  }
+
+  .footer-text {
+    margin: 0;
+    font-size: var(--mdui-typescale-body-small-size);
+    color: rgb(var(--mdui-color-on-surface-variant));
+    text-align: center;
   }
 
   #info {
@@ -231,6 +295,28 @@
     bottom: 24px;
     padding: 4px;
     box-shadow: var(--mdui-elevation-level3);
+  }
+
+  /* Navigation drawer styles */
+  .nav-drawer-header {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 0.4);
+  }
+
+  .nav-drawer-title {
+    margin: 0;
+    font-size: var(--mdui-typescale-title-large-size);
+    font-weight: var(--mdui-typescale-title-large-weight);
+    color: rgb(var(--mdui-color-on-surface));
+  }
+
+  .nav-drawer-subtitle {
+    margin: 0;
+    font-size: var(--mdui-typescale-body-small-size);
+    color: rgb(var(--mdui-color-on-surface-variant));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -258,6 +344,10 @@
       right: 16px;
       bottom: 16px;
     }
+
+    .search-container mdui-text-field {
+      min-width: 100%;
+    }
   }
 
   /* 中屏（900-1199px）：强制两列，保证水平排列 */
@@ -273,19 +363,71 @@
 </style>
  </head> 
  <body class="mdui-theme-auto">
+  <!-- Navigation Drawer for mobile -->
+  <mdui-navigation-drawer class="nav-drawer" close-on-overlay-click>
+    <div class="nav-drawer-header">
+      <h2 class="nav-drawer-title">ecomter 导航站</h2>
+      <p class="nav-drawer-subtitle">快速访问各项功能</p>
+    </div>
+    <mdui-list>
+      <mdui-list-item icon="home" href="https://blog.cohelper.tech/" target="_blank">
+        博客主页
+        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
+      </mdui-list-item>
+      <mdui-list-item icon="forum" href="https://cohelper.tech/" target="_blank">
+        CoHelper 论坛
+        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
+      </mdui-list-item>
+      <mdui-list-item icon="download" href="https://apps.microsoft.com/detail/9pgd590pn8c3?wt.mc_id=studentamb_215484" target="_blank">
+        eComBox 下载
+        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
+      </mdui-list-item>
+      <mdui-divider></mdui-divider>
+      <mdui-list-item icon="code" href="https://github.com/ecomter" target="_blank">
+        GitHub 主页
+        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
+      </mdui-list-item>
+      <mdui-list-item icon="mail" href="mailto:t1472580369@outlook.com">
+        联系我
+      </mdui-list-item>
+    </mdui-list>
+  </mdui-navigation-drawer>
+
   <mdui-layout class="app-shell">
     <mdui-top-app-bar class="app-bar"
       variant="small"
       scroll-behavior="shrink elevate"
       scroll-target=".object">
-      <mdui-button-icon icon="map--outlined"></mdui-button-icon>
+      <mdui-button-icon icon="menu" class="open-drawer"></mdui-button-icon>
       <mdui-top-app-bar-title>ecomter导航站<mdui-badge>beta</mdui-badge></mdui-top-app-bar-title>
       <div style="flex-grow: 1"></div>
-      <mdui-button-icon onclick="javascript:location.reload();" icon="refresh--outlined"></mdui-button-icon>
+      <mdui-tooltip content="切换主题">
+        <mdui-button-icon icon="dark_mode" class="theme-toggle"></mdui-button-icon>
+      </mdui-tooltip>
+      <mdui-tooltip content="刷新页面">
+        <mdui-button-icon onclick="javascript:location.reload();" icon="refresh--outlined"></mdui-button-icon>
+      </mdui-tooltip>
     </mdui-top-app-bar>
     <main class="page-content object">
       <section class="page-section">
         <h1 class="page-title">导航列表</h1>
+        
+        <!-- Search and Quick Links Section -->
+        <div class="search-container">
+          <mdui-text-field 
+            id="search-input"
+            label="搜索站点内容" 
+            variant="outlined"
+            icon="search"
+            clearable>
+          </mdui-text-field>
+        </div>
+        <div class="quick-links">
+          <mdui-chip elevated icon="book" href="https://blog.cohelper.tech/" target="_blank">博客</mdui-chip>
+          <mdui-chip elevated icon="forum" href="https://cohelper.tech/" target="_blank">论坛</mdui-chip>
+          <mdui-chip elevated icon="code" href="https://github.com/ecomter" target="_blank">GitHub</mdui-chip>
+        </div>
+
         <div class="cards-grid">
           <mdui-card id="command_panel" class="dashboard-card">
             <div class="card-heading">
@@ -294,18 +436,24 @@
             </div>
             <p class="nav-text">快速访问 ecomter 的核心站点。</p>
             <div class="button-stack">
-              <mdui-button class="nav-action open-nav" variant="filled" href="https://blog.cohelper.tech" data-subtitle="即将打开博客主页，请稍候。">博客链接
-                <mdui-icon slot="icon" name="book"></mdui-icon>
-                <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
-              </mdui-button>
-              <mdui-button class="nav-action open-nav" variant="tonal" href="https://cohelper.tech" data-subtitle="即将打开 cohelper 论坛，请稍候。">前往 cohelper 论坛
-                <mdui-icon slot="icon" name="chat"></mdui-icon>
-                <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
-              </mdui-button>
-              <mdui-button class="nav-action open-nav" variant="tonal" href="https://apps.microsoft.com/detail/9pgd590pn8c3?wt.mc_id=studentamb_215484" data-subtitle="跳转至 Microsoft Store，敬请稍候。">eComBox 下载
-                <mdui-icon slot="icon" name="download--outlined"></mdui-icon>
-                <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
-              </mdui-button>
+              <mdui-tooltip content="访问 ecomter 的个人博客" placement="top">
+                <mdui-button class="nav-action open-nav" variant="filled" href="https://blog.cohelper.tech" data-subtitle="即将打开博客主页，请稍候。">博客链接
+                  <mdui-icon slot="icon" name="book"></mdui-icon>
+                  <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
+                </mdui-button>
+              </mdui-tooltip>
+              <mdui-tooltip content="访问 CoHelper 论坛" placement="top">
+                <mdui-button class="nav-action open-nav" variant="tonal" href="https://cohelper.tech" data-subtitle="即将打开 cohelper 论坛，请稍候。">前往 cohelper 论坛
+                  <mdui-icon slot="icon" name="chat"></mdui-icon>
+                  <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
+                </mdui-button>
+              </mdui-tooltip>
+              <mdui-tooltip content="从 Microsoft Store 下载 eComBox" placement="top">
+                <mdui-button class="nav-action open-nav" variant="tonal" href="https://apps.microsoft.com/detail/9pgd590pn8c3?wt.mc_id=studentamb_215484" data-subtitle="跳转至 Microsoft Store，敬请稍候。">eComBox 下载
+                  <mdui-icon slot="icon" name="download--outlined"></mdui-icon>
+                  <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
+                </mdui-button>
+              </mdui-tooltip>
             </div>
           </mdui-card>
           <mdui-card class="dashboard-card">
@@ -356,7 +504,17 @@
         <mdui-button slot="action" variant="text" class="cancel-navigation">取消</mdui-button>
       </mdui-dialog>
       <div class="page-footer">
-        <mdui-button variant="text" icon="functions" href="https://icp.gov.moe/?keyword=20220539">萌ICP备20220539号</mdui-button>
+        <div class="footer-links">
+          <mdui-button variant="text" icon="home" href="https://blog.cohelper.tech/" target="_blank">博客主页</mdui-button>
+          <mdui-button variant="text" icon="forum" href="https://cohelper.tech/" target="_blank">论坛</mdui-button>
+          <mdui-button variant="text" icon="code" href="https://github.com/ecomter" target="_blank">GitHub</mdui-button>
+          <mdui-button variant="text" icon="mail" href="mailto:t1472580369@outlook.com">联系我</mdui-button>
+        </div>
+        <mdui-divider></mdui-divider>
+        <div class="footer-links">
+          <mdui-button variant="text" icon="functions" href="https://icp.gov.moe/?keyword=20220539">萌ICP备20220539号</mdui-button>
+        </div>
+        <p class="footer-text">© 2022-2025 ecomter. All rights reserved. | Powered by MDUI 2</p>
       </div>
       <mdui-dialog icon="info" headline="关于" close-on-esc class="about-me">
   <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
@@ -378,10 +536,100 @@
 </mdui-dialog>
     </main>
     <mdui-fab extended class="open-about-me" id="info" icon="info--outlined">关于</mdui-fab>
+    
+    <!-- Snackbar for notifications -->
+    <mdui-snackbar class="app-snackbar" placement="bottom" closeable></mdui-snackbar>
   </mdui-layout>
   <script>
 
  mdui.setColorScheme("#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0"))
+
+  // Navigation drawer functionality
+  const navDrawer = document.querySelector(".nav-drawer");
+  const openDrawerBtn = document.querySelector(".open-drawer");
+  
+  if (navDrawer && openDrawerBtn) {
+    openDrawerBtn.addEventListener("click", () => {
+      navDrawer.open = true;
+    });
+  }
+
+  // Theme toggle functionality
+  const themeToggle = document.querySelector(".theme-toggle");
+  let currentTheme = "auto";
+  
+  const updateThemeIcon = () => {
+    if (currentTheme === "dark") {
+      themeToggle.icon = "light_mode";
+    } else if (currentTheme === "light") {
+      themeToggle.icon = "dark_mode";
+    } else {
+      themeToggle.icon = "brightness_auto";
+    }
+  };
+
+  if (themeToggle) {
+    // Check localStorage for saved theme preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      currentTheme = savedTheme;
+      document.body.classList.remove("mdui-theme-auto");
+      if (currentTheme === "dark") {
+        document.body.classList.add("mdui-theme-dark");
+      } else if (currentTheme === "light") {
+        document.body.classList.add("mdui-theme-light");
+      } else {
+        document.body.classList.add("mdui-theme-auto");
+      }
+      updateThemeIcon();
+    }
+
+    themeToggle.addEventListener("click", () => {
+      // Cycle through: auto -> light -> dark -> auto
+      if (currentTheme === "auto") {
+        currentTheme = "light";
+        document.body.classList.remove("mdui-theme-auto", "mdui-theme-dark");
+        document.body.classList.add("mdui-theme-light");
+      } else if (currentTheme === "light") {
+        currentTheme = "dark";
+        document.body.classList.remove("mdui-theme-auto", "mdui-theme-light");
+        document.body.classList.add("mdui-theme-dark");
+      } else {
+        currentTheme = "auto";
+        document.body.classList.remove("mdui-theme-light", "mdui-theme-dark");
+        document.body.classList.add("mdui-theme-auto");
+      }
+      localStorage.setItem("theme", currentTheme);
+      updateThemeIcon();
+      
+      // Show snackbar notification
+      const snackbar = document.querySelector(".app-snackbar");
+      if (snackbar) {
+        const themeNames = { auto: "自动", light: "浅色", dark: "深色" };
+        snackbar.textContent = `已切换到${themeNames[currentTheme]}主题`;
+        snackbar.open = true;
+      }
+    });
+  }
+
+  // Search functionality
+  const searchInput = document.getElementById("search-input");
+  const cards = document.querySelectorAll(".dashboard-card");
+  
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      
+      cards.forEach((card) => {
+        const text = card.textContent.toLowerCase();
+        if (query === "" || text.includes(query)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  }
     
   const navDialog = document.querySelector(".nav-loading-dialog");
   const navButtons = document.querySelectorAll(".open-nav");
@@ -479,9 +727,15 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "ecomter 导航站",
-    "url": "index.html",
+    "alternateName": "ecomter 的小博客",
+    "url": "https://blog.cohelper.tech/",
     "inLanguage": "zh-CN",
-    "description": "ecomter 的博客导航站点：收录个人博客、工具分享、技术教程与系统优化等内容。"
+    "description": "ecomter 的博客导航站点：收录个人博客、工具分享、技术教程与系统优化等内容。",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://blog.cohelper.tech/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
   <script type="application/ld+json">
@@ -489,11 +743,63 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "ecomter",
-    "url": "index.html",
+    "url": "https://blog.cohelper.tech/",
+    "image": "https://img1.tucang.cc/api/image/show/7629efd7d505bf0150a6561ac7e29c0a",
     "sameAs": [
       "https://github.com/ecomter",
       "https://blog.cohelper.tech/",
       "https://cohelper.tech/"
+    ],
+    "jobTitle": "Developer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "CoHelper"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "博客主页",
+        "item": "https://blog.cohelper.tech/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "CoHelper 论坛",
+        "item": "https://cohelper.tech/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    "name": "导航列表",
+    "hasPart": [
+      {
+        "@type": "WebPage",
+        "name": "博客主页",
+        "url": "https://blog.cohelper.tech/"
+      },
+      {
+        "@type": "WebPage", 
+        "name": "CoHelper 论坛",
+        "url": "https://cohelper.tech/"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "eComBox",
+        "url": "https://apps.microsoft.com/detail/9pgd590pn8c3",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Microsoft Windows 10+"
+      }
     ]
   }
   </script>
