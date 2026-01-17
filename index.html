@@ -100,20 +100,6 @@
     gap: 24px;
   }
 
-  /* Search container styles */
-  .search-container {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .search-container mdui-text-field {
-    flex: 1;
-    min-width: 280px;
-    max-width: 480px;
-  }
-
   /* Quick links row */
   .quick-links {
     display: flex;
@@ -297,26 +283,99 @@
     box-shadow: var(--mdui-elevation-level3);
   }
 
-  /* Navigation drawer styles */
-  .nav-drawer-header {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 0.4);
+  /* Resource grid styles */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
-  .nav-drawer-title {
-    margin: 0;
-    font-size: var(--mdui-typescale-title-large-size);
-    font-weight: var(--mdui-typescale-title-large-weight);
+  .resource-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 8px;
+    gap: 8px;
+    text-decoration: none;
+    border-radius: var(--mdui-shape-corner-medium);
+    background-color: rgb(var(--mdui-color-surface-container));
+    transition: background-color 0.2s ease;
+  }
+
+  .resource-item:hover {
+    background-color: rgb(var(--mdui-color-surface-container-highest));
+  }
+
+  .resource-icon {
+    font-size: 28px;
+    color: rgb(var(--mdui-color-primary));
+  }
+
+  .resource-label {
+    font-size: var(--mdui-typescale-label-medium-size);
+    color: rgb(var(--mdui-color-on-surface));
+    text-align: center;
+  }
+
+  /* Status card styles */
+  .status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .status-icon {
+    font-size: 20px;
+    color: rgb(var(--mdui-color-on-surface-variant));
+  }
+
+  .status-icon.status-ok {
+    color: rgb(var(--mdui-color-primary));
+  }
+
+  .status-label {
+    flex: 1;
+    font-size: var(--mdui-typescale-body-medium-size);
     color: rgb(var(--mdui-color-on-surface));
   }
 
-  .nav-drawer-subtitle {
-    margin: 0;
+  .status-badge {
+    background-color: rgb(var(--mdui-color-primary-container));
+    color: rgb(var(--mdui-color-on-primary-container));
+  }
+
+  .status-time {
     font-size: var(--mdui-typescale-body-small-size);
     color: rgb(var(--mdui-color-on-surface-variant));
+  }
+
+  /* Theme switch section */
+  .theme-switch-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .theme-label {
+    font-size: var(--mdui-typescale-label-large-size);
+    font-weight: var(--mdui-typescale-label-large-weight);
+    color: rgb(var(--mdui-color-on-surface));
+  }
+
+  .theme-selector {
+    width: 100%;
+  }
+
+  .theme-selector mdui-segmented-button {
+    flex: 1;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -345,8 +404,12 @@
       bottom: 16px;
     }
 
-    .search-container mdui-text-field {
-      min-width: 100%;
+    .resource-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .theme-selector {
+      flex-wrap: wrap;
     }
   }
 
@@ -363,47 +426,14 @@
 </style>
  </head> 
  <body class="mdui-theme-auto">
-  <!-- Navigation Drawer for mobile -->
-  <mdui-navigation-drawer class="nav-drawer" close-on-overlay-click>
-    <div class="nav-drawer-header">
-      <h2 class="nav-drawer-title">ecomter 导航站</h2>
-      <p class="nav-drawer-subtitle">快速访问各项功能</p>
-    </div>
-    <mdui-list>
-      <mdui-list-item icon="home" href="https://blog.cohelper.tech/" target="_blank">
-        博客主页
-        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
-      </mdui-list-item>
-      <mdui-list-item icon="forum" href="https://cohelper.tech/" target="_blank">
-        CoHelper 论坛
-        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
-      </mdui-list-item>
-      <mdui-list-item icon="download" href="https://apps.microsoft.com/detail/9pgd590pn8c3?wt.mc_id=studentamb_215484" target="_blank">
-        eComBox 下载
-        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
-      </mdui-list-item>
-      <mdui-divider></mdui-divider>
-      <mdui-list-item icon="code" href="https://github.com/ecomter" target="_blank">
-        GitHub 主页
-        <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
-      </mdui-list-item>
-      <mdui-list-item icon="mail" href="mailto:t1472580369@outlook.com">
-        联系我
-      </mdui-list-item>
-    </mdui-list>
-  </mdui-navigation-drawer>
-
   <mdui-layout class="app-shell">
     <mdui-top-app-bar class="app-bar"
       variant="small"
       scroll-behavior="shrink elevate"
       scroll-target=".object">
-      <mdui-button-icon icon="menu" class="open-drawer"></mdui-button-icon>
+      <mdui-button-icon icon="map--outlined"></mdui-button-icon>
       <mdui-top-app-bar-title>ecomter导航站<mdui-badge>beta</mdui-badge></mdui-top-app-bar-title>
       <div style="flex-grow: 1"></div>
-      <mdui-tooltip content="切换主题">
-        <mdui-button-icon icon="dark_mode" class="theme-toggle"></mdui-button-icon>
-      </mdui-tooltip>
       <mdui-tooltip content="刷新页面">
         <mdui-button-icon onclick="javascript:location.reload();" icon="refresh--outlined"></mdui-button-icon>
       </mdui-tooltip>
@@ -412,16 +442,7 @@
       <section class="page-section">
         <h1 class="page-title">导航列表</h1>
         
-        <!-- Search and Quick Links Section -->
-        <div class="search-container">
-          <mdui-text-field 
-            id="search-input"
-            label="搜索站点内容" 
-            variant="outlined"
-            icon="search"
-            clearable>
-          </mdui-text-field>
-        </div>
+        <!-- Quick Links Section -->
         <div class="quick-links">
           <mdui-chip elevated icon="book" href="https://blog.cohelper.tech/" target="_blank">博客</mdui-chip>
           <mdui-chip elevated icon="forum" href="https://cohelper.tech/" target="_blank">论坛</mdui-chip>
@@ -485,7 +506,79 @@
                   <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
                 </mdui-button>
               </div>
+              <div class="project-item">
+                <h3 class="project-title">
+                  <mdui-icon name="computer"></mdui-icon>
+                  Azure 机器 Windows Server 升级到 Windows 11 方法
+                </h3>
+                <p class="project-desc">预计消耗时长：3-4 小时。前些时间我本想用 WSL 的镜像网络搭建一些服务，但是由于 VM 是无 SKU 的 Windows Server 系统，WSL 暂不支持，并且 Windows Server 上使用 Visual Studio 开发 UWP 略有点困难，所以我在想办法将其 "升级" 到 Windows 11。</p>
+                <mdui-button class="nav-action open-nav" variant="tonal" data-target-url="https://blog.cohelper.tech/161/" data-subtitle="正在前往博客，请稍候。">访问文章
+                  <mdui-icon slot="icon" name="article"></mdui-icon>
+                  <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
+                </mdui-button>
+              </div>
               
+            </div>
+          </mdui-card>
+
+          <!-- 技术资源 Card -->
+          <mdui-card class="dashboard-card">
+            <div class="card-heading">
+              <mdui-icon name="terminal"></mdui-icon>
+              <span>技术资源</span>
+            </div>
+            <p class="nav-text">开发者常用工具与资源。</p>
+            <div class="resource-grid">
+              <mdui-card class="resource-item" clickable href="https://github.com/ecomter" target="_blank">
+                <mdui-icon name="code" class="resource-icon"></mdui-icon>
+                <span class="resource-label">GitHub</span>
+              </mdui-card>
+              <mdui-card class="resource-item" clickable href="https://blog.cohelper.tech/" target="_blank">
+                <mdui-icon name="article" class="resource-icon"></mdui-icon>
+                <span class="resource-label">技术博客</span>
+              </mdui-card>
+              <mdui-card class="resource-item" clickable href="https://apps.microsoft.com/detail/9pgd590pn8c3" target="_blank">
+                <mdui-icon name="apps" class="resource-icon"></mdui-icon>
+                <span class="resource-label">应用下载</span>
+              </mdui-card>
+              <mdui-card class="resource-item" clickable href="https://cohelper.tech/" target="_blank">
+                <mdui-icon name="forum" class="resource-icon"></mdui-icon>
+                <span class="resource-label">社区论坛</span>
+              </mdui-card>
+            </div>
+          </mdui-card>
+
+          <!-- 系统状态 Card -->
+          <mdui-card class="dashboard-card status-card">
+            <div class="card-heading">
+              <mdui-icon name="monitoring"></mdui-icon>
+              <span>站点信息</span>
+            </div>
+            <div class="status-list">
+              <div class="status-item">
+                <mdui-icon name="check_circle" class="status-icon status-ok"></mdui-icon>
+                <span class="status-label">博客服务</span>
+                <mdui-badge class="status-badge">运行中</mdui-badge>
+              </div>
+              <div class="status-item">
+                <mdui-icon name="check_circle" class="status-icon status-ok"></mdui-icon>
+                <span class="status-label">论坛服务</span>
+                <mdui-badge class="status-badge">运行中</mdui-badge>
+              </div>
+              <div class="status-item">
+                <mdui-icon name="schedule" class="status-icon"></mdui-icon>
+                <span class="status-label">最后更新</span>
+                <span class="status-time" id="last-update">加载中...</span>
+              </div>
+            </div>
+            <mdui-divider></mdui-divider>
+            <div class="theme-switch-section">
+              <span class="theme-label">主题切换</span>
+              <mdui-segmented-button-group class="theme-selector" selects="single">
+                <mdui-segmented-button value="auto" icon="brightness_auto" selected>自动</mdui-segmented-button>
+                <mdui-segmented-button value="light" icon="light_mode">浅色</mdui-segmented-button>
+                <mdui-segmented-button value="dark" icon="dark_mode">深色</mdui-segmented-button>
+              </mdui-segmented-button-group>
             </div>
           </mdui-card>
         </div>
@@ -544,63 +637,46 @@
 
  mdui.setColorScheme("#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0"))
 
-  // Navigation drawer functionality
-  const navDrawer = document.querySelector(".nav-drawer");
-  const openDrawerBtn = document.querySelector(".open-drawer");
-  
-  if (navDrawer && openDrawerBtn) {
-    openDrawerBtn.addEventListener("click", () => {
-      navDrawer.open = true;
-    });
-  }
-
-  // Theme toggle functionality
-  const themeToggle = document.querySelector(".theme-toggle");
+  // Theme selector functionality (segmented button group)
+  const themeSelector = document.querySelector(".theme-selector");
   let currentTheme = "auto";
-  
-  const updateThemeIcon = () => {
-    if (currentTheme === "dark") {
-      themeToggle.icon = "light_mode";
-    } else if (currentTheme === "light") {
-      themeToggle.icon = "dark_mode";
+
+  const applyTheme = (theme) => {
+    document.body.classList.remove("mdui-theme-auto", "mdui-theme-light", "mdui-theme-dark");
+    if (theme === "dark") {
+      document.body.classList.add("mdui-theme-dark");
+    } else if (theme === "light") {
+      document.body.classList.add("mdui-theme-light");
     } else {
-      themeToggle.icon = "brightness_auto";
+      document.body.classList.add("mdui-theme-auto");
     }
   };
 
-  if (themeToggle) {
-    // Check localStorage for saved theme preference
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      currentTheme = savedTheme;
-      document.body.classList.remove("mdui-theme-auto");
-      if (currentTheme === "dark") {
-        document.body.classList.add("mdui-theme-dark");
-      } else if (currentTheme === "light") {
-        document.body.classList.add("mdui-theme-light");
-      } else {
-        document.body.classList.add("mdui-theme-auto");
-      }
-      updateThemeIcon();
+  // Update selected button in theme selector
+  const updateThemeSelector = (theme) => {
+    if (themeSelector) {
+      const buttons = themeSelector.querySelectorAll("mdui-segmented-button");
+      buttons.forEach(btn => {
+        btn.selected = btn.value === theme;
+      });
     }
+  };
 
-    themeToggle.addEventListener("click", () => {
-      // Cycle through: auto -> light -> dark -> auto
-      if (currentTheme === "auto") {
-        currentTheme = "light";
-        document.body.classList.remove("mdui-theme-auto", "mdui-theme-dark");
-        document.body.classList.add("mdui-theme-light");
-      } else if (currentTheme === "light") {
-        currentTheme = "dark";
-        document.body.classList.remove("mdui-theme-auto", "mdui-theme-light");
-        document.body.classList.add("mdui-theme-dark");
-      } else {
-        currentTheme = "auto";
-        document.body.classList.remove("mdui-theme-light", "mdui-theme-dark");
-        document.body.classList.add("mdui-theme-auto");
-      }
+  // Check localStorage for saved theme preference on load
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    currentTheme = savedTheme;
+    applyTheme(currentTheme);
+    updateThemeSelector(currentTheme);
+  }
+
+  if (themeSelector) {
+    themeSelector.addEventListener("change", (e) => {
+      // Get selected value from segmented button group
+      const selectedBtn = themeSelector.querySelector("mdui-segmented-button[selected]");
+      currentTheme = selectedBtn ? selectedBtn.value : e.target.value;
+      applyTheme(currentTheme);
       localStorage.setItem("theme", currentTheme);
-      updateThemeIcon();
       
       // Show snackbar notification
       const snackbar = document.querySelector(".app-snackbar");
@@ -612,23 +688,12 @@
     });
   }
 
-  // Search functionality
-  const searchInput = document.getElementById("search-input");
-  const cards = document.querySelectorAll(".dashboard-card");
-  
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      
-      cards.forEach((card) => {
-        const text = card.textContent.toLowerCase();
-        if (query === "" || text.includes(query)) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    });
+  // Update last update time
+  const lastUpdateEl = document.getElementById("last-update");
+  if (lastUpdateEl) {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    lastUpdateEl.textContent = now.toLocaleDateString('zh-CN', options);
   }
     
   const navDialog = document.querySelector(".nav-loading-dialog");
