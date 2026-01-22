@@ -109,19 +109,23 @@
   }
 
   .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 420px));
-    gap: 24px;
-    justify-content: center;
-    justify-items: center;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
-  /* 当卡片数量为奇数时，让最后一个在较窄屏幕下居中占据一行（避免宽屏被强制单列） */
-  @media screen and (max-width: 899px) {
-    .cards-grid > *:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-      justify-self: center;
-    }
+  /* Masonry layout styles (controlled by JS) */
+  .masonry-layout {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .masonry-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
   }
 
   mdui-card.dashboard-card {
@@ -135,7 +139,8 @@
     box-shadow: var(--mdui-elevation-level2);
     transition: transform 0.24s var(--mdui-motion-easing-emphasized), box-shadow 0.24s var(--mdui-motion-easing-emphasized);
     width: 100%;
-    max-width: 420px;
+    break-inside: avoid;
+    margin-bottom: 16px;
   }
 
   mdui-card.dashboard-card:hover {
@@ -174,12 +179,17 @@
     color: rgb(var(--mdui-color-on-surface-variant));
   }
 
-  .dialog-loading-text p {
+  .dialog-loading-text #hitokoto_text {
     margin: 0;
     font-size: var(--mdui-typescale-body-medium-size);
     line-height: var(--mdui-typescale-body-medium-line-height);
     color: rgb(var(--mdui-color-on-surface));
+    text-decoration: none;
     cursor: pointer;
+  }
+  
+  .dialog-loading-text #hitokoto_text:hover {
+    text-decoration: underline;
   }
 
   .dialog-loading-text span {
@@ -290,6 +300,13 @@
     gap: 12px;
   }
 
+  /* Tech Stack Grid */
+  .tech-stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
   .resource-item {
     display: flex;
     flex-direction: column;
@@ -340,6 +357,10 @@
     color: rgb(var(--mdui-color-primary));
   }
 
+  .status-icon.status-maintenance {
+    color: rgb(var(--mdui-color-error));
+  }
+
   .status-label {
     flex: 1;
     font-size: var(--mdui-typescale-body-medium-size);
@@ -354,6 +375,87 @@
   .status-time {
     font-size: var(--mdui-typescale-body-small-size);
     color: rgb(var(--mdui-color-on-surface-variant));
+  }
+
+  /* Quote Card Styles */
+  .quote-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0;
+  }
+  
+  .quote-text {
+    margin: 0;
+    font-size: var(--mdui-typescale-body-large-size);
+    line-height: var(--mdui-typescale-body-large-line-height);
+    font-style: italic;
+    color: rgb(var(--mdui-color-on-surface));
+    min-height: 3rem; /* Prevent layout jump */
+  }
+
+  .quote-source {
+    margin: 0;
+    text-align: right;
+    font-size: var(--mdui-typescale-body-medium-size);
+    color: rgb(var(--mdui-color-on-surface-variant));
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  /* Tool Card Styles */
+  .tool-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .tool-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  
+  .tool-actions mdui-chip {
+    cursor: pointer;
+  }
+
+  .tool-output {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: rgb(var(--mdui-color-surface-container));
+    border-radius: var(--mdui-shape-corner-medium);
+    cursor: pointer;
+    border: 1px solid rgba(var(--mdui-color-outline-variant), 0.5);
+    transition: background-color 0.2s;
+  }
+
+  .tool-output:hover {
+    background-color: rgb(var(--mdui-color-surface-container-highest));
+  }
+  
+  .output-label {
+    font-size: var(--mdui-typescale-body-small-size);
+    color: rgb(var(--mdui-color-on-surface-variant));
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .output-text {
+    margin: 0;
+    word-break: break-all;
+    color: rgb(var(--mdui-color-on-surface));
+    font-size: var(--mdui-typescale-body-medium-size);
+  }
+
+  .font-mono {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   }
 
   /* Theme switch section */
@@ -413,14 +515,7 @@
     }
   }
 
-  /* 中屏（900-1199px）：强制两列，保证水平排列 */
-  @media screen and (min-width: 900px) {
-    .cards-grid {
-      grid-template-columns: repeat(2, minmax(360px, 420px));
-      justify-content: center;
-      justify-items: center;
-    }
-  }
+
 
   
 </style>
@@ -455,28 +550,23 @@
               <mdui-icon name="dashboard"></mdui-icon>
               <span>常用入口</span>
             </div>
-            <p class="nav-text">快速访问 ecomter 的核心站点。</p>
+            <p class="nav-textw">快速访问 ecomter 的核心站点。</p>
             <div class="button-stack">
-              <mdui-tooltip content="访问 ecomter 的个人博客" placement="top">
-                <mdui-button class="nav-action open-nav" variant="filled" href="https://blog.cohelper.tech" data-subtitle="即将打开博客主页，请稍候。">博客链接
+              <mdui-tooltip content="访问 ecomter 的个人博客" placement="top"><mdui-button class="nav-action open-nav" variant="filled" href="https://blog.cohelper.tech" data-subtitle="即将打开博客主页，请稍候。">个人博客
                   <mdui-icon slot="icon" name="book"></mdui-icon>
                   <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
-                </mdui-button>
-              </mdui-tooltip>
-              <mdui-tooltip content="访问 CoHelper 论坛" placement="top">
-                <mdui-button class="nav-action open-nav" variant="tonal" href="https://cohelper.tech" data-subtitle="即将打开 cohelper 论坛，请稍候。">前往 cohelper 论坛
+                </mdui-button></mdui-tooltip>
+              <mdui-tooltip content="访问 CoHelper 论坛" placement="top"><mdui-button class="nav-action open-nav" variant="tonal" href="https://cohelper.tech" data-subtitle="即将打开 coHelper 论坛，请稍候。">cohelper 论坛
                   <mdui-icon slot="icon" name="chat"></mdui-icon>
                   <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
-                </mdui-button>
-              </mdui-tooltip>
-              <mdui-tooltip content="从 Microsoft Store 下载 eComBox" placement="top">
-                <mdui-button class="nav-action open-nav" variant="tonal" href="https://apps.microsoft.com/detail/9pgd590pn8c3?wt.mc_id=studentamb_215484" data-subtitle="跳转至 Microsoft Store，敬请稍候。">eComBox 下载
+                </mdui-button></mdui-tooltip>
+              <mdui-tooltip content="从 Microsoft Store 下载 eComBox" placement="top"><mdui-button class="nav-action open-nav" variant="tonal" href="https://apps.microsoft.com/detail/9pgd590pn8c3?wt.mc_id=studentamb_215484" data-subtitle="跳转至 Microsoft Store，敬请稍候。">eComBox 下载
                   <mdui-icon slot="icon" name="download--outlined"></mdui-icon>
                   <mdui-icon slot="end-icon" name="arrow_forward"></mdui-icon>
-                </mdui-button>
-              </mdui-tooltip>
+                </mdui-button></mdui-tooltip>
             </div>
           </mdui-card>
+          <!-- 项目&资料 -->
           <mdui-card class="dashboard-card">
             <div class="card-heading">
               <mdui-icon name="code"></mdui-icon>
@@ -521,66 +611,96 @@
             </div>
           </mdui-card>
 
-          <!-- 技术资源 Card -->
+          <!-- 站点信息 Card -->
           <mdui-card class="dashboard-card">
             <div class="card-heading">
-              <mdui-icon name="terminal"></mdui-icon>
-              <span>技术资源</span>
-            </div>
-            <p class="nav-text">开发者常用工具与资源。</p>
-            <div class="resource-grid">
-              <mdui-card class="resource-item" clickable href="https://github.com/ecomter" target="_blank">
-                <mdui-icon name="code" class="resource-icon"></mdui-icon>
-                <span class="resource-label">GitHub</span>
-              </mdui-card>
-              <mdui-card class="resource-item" clickable href="https://blog.cohelper.tech/" target="_blank">
-                <mdui-icon name="article" class="resource-icon"></mdui-icon>
-                <span class="resource-label">技术博客</span>
-              </mdui-card>
-              <mdui-card class="resource-item" clickable href="https://apps.microsoft.com/detail/9pgd590pn8c3" target="_blank">
-                <mdui-icon name="apps" class="resource-icon"></mdui-icon>
-                <span class="resource-label">应用下载</span>
-              </mdui-card>
-              <mdui-card class="resource-item" clickable href="https://cohelper.tech/" target="_blank">
-                <mdui-icon name="forum" class="resource-icon"></mdui-icon>
-                <span class="resource-label">社区论坛</span>
-              </mdui-card>
-            </div>
-          </mdui-card>
-
-          <!-- 系统状态 Card -->
-          <mdui-card class="dashboard-card status-card">
-            <div class="card-heading">
-              <mdui-icon name="monitoring"></mdui-icon>
+              <mdui-icon name="info"></mdui-icon>
               <span>站点信息</span>
             </div>
+            <p class="nav-text">本站运行状态。</p>
             <div class="status-list">
               <div class="status-item">
                 <mdui-icon name="check_circle" class="status-icon status-ok"></mdui-icon>
-                <span class="status-label">博客服务</span>
-                <mdui-badge class="status-badge">运行中</mdui-badge>
+                <div class="status-label">
+                  <div>博客主页</div>
+                  <div class="status-time">运行正常</div>
+                </div>
+                <mdui-badge variant="small" class="status-badge">在线</mdui-badge>
               </div>
               <div class="status-item">
-                <mdui-icon name="check_circle" class="status-icon status-ok"></mdui-icon>
-                <span class="status-label">论坛服务</span>
-                <mdui-badge class="status-badge">运行中</mdui-badge>
+                <mdui-icon name="build" class="status-icon status-maintenance"></mdui-icon>
+                <div class="status-label">
+                  <div>CoHelper 论坛</div>
+                  <div class="status-time">维护中</div>
+                </div>
+                <mdui-badge variant="small" class="status-badge">维护</mdui-badge>
               </div>
               <div class="status-item">
-                <mdui-icon name="schedule" class="status-icon"></mdui-icon>
-                <span class="status-label">最后更新</span>
-                <span class="status-time" id="last-update">加载中...</span>
+                <mdui-icon name="update" class="status-icon"></mdui-icon>
+                <div class="status-label">
+                  <div>最后更新</div>
+                  <div class="status-time" id="last-update">...</div>
+                </div>
               </div>
-            </div>
-            <mdui-divider></mdui-divider>
-            <div class="theme-switch-section">
-              <span class="theme-label">主题切换</span>
-              <mdui-segmented-button-group class="theme-selector" selects="single">
-                <mdui-segmented-button value="auto" icon="brightness_auto" selected>自动</mdui-segmented-button>
-                <mdui-segmented-button value="light" icon="light_mode">浅色</mdui-segmented-button>
-                <mdui-segmented-button value="dark" icon="dark_mode">深色</mdui-segmented-button>
-              </mdui-segmented-button-group>
             </div>
           </mdui-card>
+
+          <!-- 技术栈 Card -->
+          <mdui-card class="dashboard-card">
+            <div class="card-heading">
+              <mdui-icon name="handyman"></mdui-icon>
+              <span>技术栈</span>
+            </div>
+            <p class="nav-text">常用的技术与开发工具。</p>
+            <div class="tech-stack-grid">
+              <mdui-chip elevated icon="html">HTML5</mdui-chip>
+              <mdui-chip elevated icon="css">CSS3</mdui-chip>
+              <mdui-chip elevated icon="javascript">JavaScript</mdui-chip>
+              <mdui-chip elevated icon="windows">UWP</mdui-chip>
+              <mdui-chip elevated>C#</mdui-chip>
+            </div>
+          </mdui-card>
+
+          <!-- 每日一言 Card -->
+          <mdui-card class="dashboard-card">
+            <div class="card-heading">
+              <mdui-icon name="format_quote"></mdui-icon>
+              <span>每日一言</span>
+            </div>
+            <div class="quote-content">
+              <p class="quote-text" id="card-quote-text">加载中...</p>
+              <p class="quote-source" id="card-quote-source">-- <span id="card-quote-author">...</span></p>
+            </div>
+            <mdui-divider></mdui-divider>
+            <div class="card-actions">
+              <mdui-tooltip content="复制内容"><mdui-button-icon icon="content_copy" id="btn-copy-quote"></mdui-button-icon></mdui-tooltip>
+              <mdui-tooltip content="刷新"><mdui-button-icon icon="refresh" id="btn-refresh-quote"></mdui-button-icon></mdui-tooltip>
+            </div>
+          </mdui-card>
+
+          <!-- 国密工具 Card -->
+          <mdui-card class="dashboard-card">
+            <div class="card-heading">
+              <mdui-icon name="security"></mdui-icon>
+              <span>加密工具箱</span>
+            </div>
+            <div class="tool-inputs">
+              <mdui-text-field variant="outlined" label="输入内容 / 密文" id="tool-input" autosize min-rows="2" max-rows="5"></mdui-text-field>
+              <mdui-text-field variant="outlined" label="密钥 (SM4 必填, Hex 或 16字符)" id="tool-key" type="password" toggle-password icon="key"></mdui-text-field>
+            </div>
+            <div class="tool-actions">
+              <mdui-chip elevated id="btn-md5">MD5</mdui-chip>
+              <mdui-chip elevated id="btn-sha256">SHA256</mdui-chip>
+              <mdui-chip elevated id="btn-sm3">SM3</mdui-chip>
+              <mdui-chip elevated id="btn-sm4-en">SM4 加密</mdui-chip>
+              <mdui-chip elevated id="btn-sm4-de">SM4 解密</mdui-chip>
+            </div>
+            <div class="tool-output" id="tool-output" hidden>
+              <span class="output-label">结果 (点击复制):</span>
+              <p class="output-text font-mono" id="tool-result"></p>
+            </div>
+          </mdui-card>
+
         </div>
       </section>
       <mdui-dialog 
@@ -590,11 +710,25 @@
         <div class="dialog-loading">
           <mdui-circular-progress size="32"></mdui-circular-progress>
           <div class="dialog-loading-text">
-            <p id="hitokoto_text">正在获取一句话...</p>
+            <a id="hitokoto_text" target="_blank">正在获取一句话...</a>
             <span id="loading_subtitle">即将打开链接，请稍候。</span>
           </div>
         </div>
         <mdui-button slot="action" variant="text" class="cancel-navigation">取消</mdui-button>
+      </mdui-dialog>
+
+      <!-- Maintenance Dialog -->
+      <mdui-dialog 
+        close-on-overlay-click 
+        class="maintenance-dialog"
+        icon="build"
+        headline="站点维护中">
+        <div class="dialog-content">
+          <p>CoHelper 论坛目前正在进行系统升级维护或重构。</p>
+          <p>您目前可能无法正常访问服务，或遇到不稳定的情况。</p>
+        </div>
+        <mdui-button slot="action" variant="text" class="cancel-maintenance">取消</mdui-button>
+        <mdui-button slot="action" variant="filled" class="proceed-maintenance">仍要访问</mdui-button>
       </mdui-dialog>
       <div class="page-footer">
         <div class="footer-links">
@@ -609,24 +743,44 @@
         </div>
         <p class="footer-text">© 2022-2025 ecomter. All rights reserved. | Powered by MDUI 2</p>
       </div>
-      <mdui-dialog icon="info" headline="关于" close-on-esc class="about-me">
-  <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
-    <mdui-chip elevated icon="access_time--outlined">25P2 版本</mdui-chip>
-  <mdui-chip elevated icon="adf_scanner--outlined">自托管</mdui-chip> 
-  <p style="font-size:27px">欢迎大家来到我的站点😆<br /></p>
-  <p>我会在这里发布一些信息日常小技巧和前瞻信息哦。</p>
-  <p>本站内容涵盖个人博客、工具分享、技术教程、系统优化等多个方向，欢迎大家交流与反馈。</p>
-  <p>如果你有任何建议或问题，可以通过页面下方的反馈按钮联系我。</p>
-  <p>本站自托管，数据安全可靠，持续更新中。</p>
-  <p>CoHelper 是非盈利项目，感谢大家支持与贡献。</p>
-  <p>Copyright ecomter 2022-2025</p>
-    
+      <mdui-dialog icon="info" headline="关于本站" close-on-esc class="about-me">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 10px 0;">
+          
+          <!-- Avatar & Branding -->
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+            <img src="https://img1.tucang.cc/api/image/show/7629efd7d505bf0150a6561ac7e29c0a" 
+                 style="width: 72px; height: 72px; border-radius: 50%; box-shadow: var(--mdui-elevation-level1);" 
+                 alt="ecomter">
+            <div style="font-size: var(--mdui-typescale-title-large-size); font-weight: 700;">ecomter 导航站</div>
+          </div>
 
-    <mdui-linear-progress value="0.64"></mdui-linear-progress>
+          <!-- Badges -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+            <mdui-chip elevated icon="build_circle--outlined">基于 mdui 2</mdui-chip>
+            <mdui-chip elevated icon="update--outlined">v26.1 版本</mdui-chip>
+            <mdui-chip elevated icon="dns--outlined">自托管</mdui-chip>
+          </div>
+
+          <!-- Description -->
+          <div style="text-align: center; color: rgb(var(--mdui-color-on-surface)); line-height: 1.6; max-width: 400px;">
+            <p style="margin: 0 0 12px; font-weight: bold;">欢迎来到我的数字花园 😆</p>
+            <p style="margin: 0; color: rgb(var(--mdui-color-on-surface-variant)); font-size: var(--mdui-typescale-body-medium-size);">
+              这里汇集了我的博客文章、实用工具、UWP 开发项目以及系统优化心得。
+            </p>
+          </div>
+          
+          <mdui-divider style="width: 100%;"></mdui-divider>
+
+          <!-- Footer Info -->
+          <div style="text-align: center; color: rgb(var(--mdui-color-on-surface-variant)); font-size: var(--mdui-typescale-body-small-size);">
+             <p style="margin: 0;">CoHelper 非盈利项目 | 持续更新中</p>
+             <p style="margin: 4px 0 0;">Copyright © 2022-2026 ecomter</p>
+          </div>
+        </div>
     
-<mdui-button slot="action" variant="text" onclick="window.location.href='mailto:t1472580369@outlook.com'">去反馈</mdui-button>
-  <mdui-button slot="action" class="close-about">好的，我知道了</mdui-button>
-</mdui-dialog>
+        <mdui-button slot="action" variant="text" icon="mail--outlined" onclick="window.location.href='mailto:t1472580369@outlook.com'">反馈建议</mdui-button>
+        <mdui-button slot="action" variant="filled" class="close-about">关闭</mdui-button>
+      </mdui-dialog>
     </main>
     <mdui-fab extended class="open-about-me" id="info" icon="info--outlined">关于</mdui-fab>
     
@@ -695,6 +849,151 @@
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     lastUpdateEl.textContent = now.toLocaleDateString('zh-CN', options);
   }
+
+  // --- Quote Card Logic ---
+  const quoteText = document.getElementById("card-quote-text");
+  const quoteAuthor = document.getElementById("card-quote-author");
+  const quoteRefresh = document.getElementById("btn-refresh-quote");
+  const quoteCopy = document.getElementById("btn-copy-quote");
+
+  const fetchQuote = () => {
+    if(!quoteText) return;
+    quoteText.style.opacity = "0.5";
+    fetch("https://v1.hitokoto.cn?c=a&c=b&c=c&c=d&c=i") 
+    .then(res => res.json())
+    .then(data => {
+      quoteText.textContent = data.hitokoto;
+      quoteAuthor.textContent = data.from_who ? `${data.from_who} «${data.from}»` : `«${data.from}»`;
+      quoteText.style.opacity = "1";
+      setTimeout(initMasonry, 100);
+    })
+    .catch(() => {
+      quoteText.textContent = "生活原本沉闷，但跑起来就有风。";
+      quoteAuthor.textContent = "网络";
+      quoteText.style.opacity = "1";
+    });
+  };
+
+  if (quoteRefresh) {
+    quoteRefresh.addEventListener("click", fetchQuote);
+  }
+
+  if (quoteCopy) {
+    quoteCopy.addEventListener("click", () => {
+      const text = `${quoteText.textContent} — ${quoteAuthor.textContent}`;
+      navigator.clipboard.writeText(text).then(() => {
+        const snackbar = document.querySelector(".app-snackbar");
+        if(snackbar) {
+          snackbar.textContent = "一言已复制到剪贴板";
+          snackbar.open = true;
+        }
+      });
+    });
+  }
+  
+  fetchQuote();
+
+  // --- Tool Card Logic ---
+  const toolInput = document.getElementById("tool-input");
+  const toolKey = document.getElementById("tool-key");
+  const toolResult = document.getElementById("tool-result");
+  const toolOutput = document.getElementById("tool-output");
+  
+  const showResult = (text) => {
+    if(!toolResult || !toolOutput) return;
+    toolResult.textContent = text;
+    toolOutput.hidden = false;
+    // Update layout
+    setTimeout(initMasonry, 100);
+  };
+
+  // Helper: Convert string to Hex for SM4 Key
+  const strToHex = (str) => {
+    let hex = '';
+    for(let i = 0; i < str.length; i++) {
+        hex += '' + str.charCodeAt(i).toString(16);
+    }
+    return hex;
+  }
+
+  const handleToolAction = (action) => {
+    const input = toolInput?.value || "";
+    let key = toolKey?.value || "";
+    
+    // Normalize Key for SM4: sm-crypto requires hex string key (32 chars for 128 bit)
+    // If user provides non-hex string, we treat it as utf8 and convert to hex
+    const isHex = /^[0-9a-fA-F]+$/.test(key);
+    if (key && !isHex) {
+        key = strToHex(key);
+    }
+    // Pad key with 0 if length < 32 (rough fallback)
+    if (key && key.length < 32) {
+       key = key.padEnd(32, '0');
+    }
+    // Truncate if too long
+    if (key && key.length > 32) {
+       key = key.substring(0, 32);
+    }
+
+    if (!input) return;
+    
+    // Check if libraries loaded
+    const hasSmCrypto = typeof smCrypto !== 'undefined';
+    const hasCryptoJS = typeof CryptoJS !== 'undefined';
+
+    try {
+      let result = "";
+      switch(action) {
+        case 'md5':
+            if(!hasCryptoJS) throw new Error("CryptoJS 未加载");
+            result = CryptoJS.MD5(input).toString();
+            break;
+        case 'sha256':
+            if(!hasCryptoJS) throw new Error("CryptoJS 未加载");
+            result = CryptoJS.SHA256(input).toString();
+            break;
+        case 'sm3': 
+            if(!hasSmCrypto) throw new Error("sm-crypto 未加载");
+            result = smCrypto.sm3(input); 
+            break;
+        case 'sm4-en': 
+            if(!hasSmCrypto) throw new Error("sm-crypto 未加载");
+            if(!key) { showResult("错误: 请输入密钥"); return; }
+            result = smCrypto.sm4.encrypt(input, key); 
+            break;
+        case 'sm4-de': 
+            if(!hasSmCrypto) throw new Error("sm-crypto 未加载");
+            if(!key) { showResult("错误: 请输入密钥"); return; }
+            result = smCrypto.sm4.decrypt(input, key); 
+            break;
+      }
+      showResult(result);
+    } catch (e) {
+      console.error(e);
+      showResult("错误: " + (e.message || "处理失败"));
+    }
+  };
+
+  document.getElementById("btn-md5")?.addEventListener("click", () => handleToolAction('md5'));
+  document.getElementById("btn-sha256")?.addEventListener("click", () => handleToolAction('sha256'));
+  document.getElementById("btn-sm3")?.addEventListener("click", () => handleToolAction('sm3'));
+  document.getElementById("btn-sm4-en")?.addEventListener("click", () => handleToolAction('sm4-en'));
+  document.getElementById("btn-sm4-de")?.addEventListener("click", () => handleToolAction('sm4-de'));
+
+  if (toolOutput) {
+    toolOutput.addEventListener("click", () => {
+       const text = toolResult.textContent;
+       if (text && !text.startsWith("错误")) {
+         navigator.clipboard.writeText(text).then(() => {
+           const snackbar = document.querySelector(".app-snackbar");
+           if(snackbar) {
+             snackbar.textContent = "结果已复制";
+             snackbar.open = true;
+           }
+         });
+       }
+    });
+  }
     
   const navDialog = document.querySelector(".nav-loading-dialog");
   const navButtons = document.querySelectorAll(".open-nav");
@@ -702,33 +1001,15 @@
   const hitokotoText = document.getElementById("hitokoto_text");
   const loadingSubtitle = document.getElementById("loading_subtitle");
   let navigationTimer = null;
-  let quoteLoaded = false;
 
   if (hitokotoText) {
-    const loadQuote = () => {
-      if (quoteLoaded) {
-        return;
-      }
-      fetch("https://v1.hitokoto.cn")
-        .then((response) => response.json())
-        .then((data) => {
-          hitokotoText.textContent = data.hitokoto;
-          hitokotoText.dataset.uuid = data.uuid;
-          quoteLoaded = true;
-        })
-        .catch(() => {
-          hitokotoText.textContent = "加载句子失败，也许可以直接前往看看。";
-          quoteLoaded = true;
-        });
-    };
-
-    loadQuote();
-
-    hitokotoText.addEventListener("click", () => {
-      if (hitokotoText.dataset.uuid) {
-        window.open(`https://hitokoto.cn/?uuid=${hitokotoText.dataset.uuid}`, "_blank");
-      }
-    });
+    fetch('https://v1.hitokoto.cn')
+      .then(response => response.json())
+      .then(data => {
+        hitokotoText.href = `https://hitokoto.cn/?uuid=${data.uuid}`;
+        hitokotoText.innerText = data.hitokoto;
+      })
+      .catch(console.error);
   }
 
   if (navDialog && navButtons.length > 0) {
@@ -784,6 +1065,114 @@
   if (dialogAb && closeButtonAb) {
     closeButtonAb.addEventListener("click", () => dialogAb.open = false);
   }
+
+  // --- Maintenance Logic ---
+  const maintenanceDialog = document.querySelector(".maintenance-dialog");
+  const cancelMaintenance = maintenanceDialog?.querySelector(".cancel-maintenance");
+  const proceedMaintenance = maintenanceDialog?.querySelector(".proceed-maintenance");
+  let maintenanceUrl = "";
+
+  // Use capture phase (true) to intercept clicks before other handlers (like open-nav)
+  document.body.addEventListener("click", (e) => {
+    // Find closest anchor or mdui-button/chip with href pointing to forum
+    // Note: e.target might be inside shadow DOM, so simple closest might need composed path, 
+    // but for MDUI generic usage, checking the custom element host usually works if bubbling.
+    // However, composedPath() is safer for custom elements.
+    const path = e.composedPath();
+    const target = path.find(el => el.getAttribute && el.getAttribute("href") && el.getAttribute("href").includes("cohelper.tech"));
+    
+    if (target) {
+      const url = target.getAttribute("href");
+      // Strict check to avoid intercepting blog.cohelper.tech
+      if (url === "https://cohelper.tech/" || url === "https://cohelper.tech") {
+         e.preventDefault();
+         e.stopPropagation(); 
+         e.stopImmediatePropagation(); // Stop other listeners on the same element or during phase
+         maintenanceUrl = url;
+         if (maintenanceDialog) maintenanceDialog.open = true;
+      }
+    }
+  }, true);
+
+  if (maintenanceDialog) {
+    if (cancelMaintenance) {
+      cancelMaintenance.addEventListener("click", () => maintenanceDialog.open = false);
+    }
+    if (proceedMaintenance) {
+      proceedMaintenance.addEventListener("click", () => {
+        maintenanceDialog.open = false;
+        if (maintenanceUrl) {
+          window.open(maintenanceUrl, "_blank");
+        }
+      });
+    }
+  }
+
+  // --- Masonry Layout Algorithm ---
+  const initMasonry = () => {
+    const grid = document.querySelector('.cards-grid');
+    if (!grid) return;
+    
+    const isDesktop = window.innerWidth >= 700;
+
+    // Restore to original state if not desktop or needing reset
+    if (!isDesktop && grid.classList.contains('masonry-layout')) {
+      const allCards = [];
+      grid.querySelectorAll('.masonry-column').forEach(col => {
+        Array.from(col.children).forEach(c => allCards.push(c));
+      });
+      // Sort by original index to maintain order
+      allCards.sort((a, b) => (a.dataset.index || 0) - (b.dataset.index || 0));
+      
+      grid.innerHTML = '';
+      allCards.forEach(card => grid.appendChild(card));
+      grid.classList.remove('masonry-layout');
+      return;
+    }
+
+    // Apply Masonry if desktop and not already applied
+    if (isDesktop && !grid.classList.contains('masonry-layout')) {
+      const cards = Array.from(grid.children);
+      // Store original index
+      cards.forEach((card, index) => {
+        if (!card.dataset.index) card.dataset.index = index;
+      });
+
+      grid.classList.add('masonry-layout');
+      grid.innerHTML = '';
+      
+      const col1 = document.createElement('div');
+      col1.className = 'masonry-column';
+      const col2 = document.createElement('div');
+      col2.className = 'masonry-column';
+      
+      grid.appendChild(col1);
+      grid.appendChild(col2);
+      
+      // Greedy distribution algorithm
+      // Place each card into the shortest column
+      cards.forEach((card) => {
+        // Need to append to calculate height, or use estimated height?
+        // Appending to DOM allows offsetHeight to update (triggering reflow)
+        if (col1.offsetHeight <= col2.offsetHeight) {
+           col1.appendChild(card);
+        } else {
+           col2.appendChild(card);
+        }
+      });
+    }
+  };
+
+  // Debounce resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(initMasonry, 100);
+  });
+  
+  // Run on load
+  window.addEventListener('load', initMasonry);
+  initMasonry(); // Also run immediately
 
    </script>
   <!-- Structured Data -->
@@ -870,5 +1259,7 @@
   </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6393990555447663"
      crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sm-crypto/dist/sm-crypto.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </body>
 </html>
