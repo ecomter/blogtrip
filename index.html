@@ -11,7 +11,11 @@
   <script src="mdui/mdui.global.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-  
+  <!-- Fonts: Roboto and Noto Sans SC for Material Design typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
   <!-- Primary SEO Meta Tags -->
   <title>ecomter 的小博客 - 导航站 | 技术教程与工具分享</title>
   <meta name="description" content="ecomter 的博客导航站点：收录个人博客、工具分享、技术教程与系统优化等内容。访问 blog.cohelper.tech 获取更多精彩内容，欢迎阅读与交流。">
@@ -60,10 +64,21 @@
 <style>
   body {
     margin: 0;
-    font-family: "Roboto", "Noto Sans SC", "Segoe UI", sans-serif;
-    background: linear-gradient(180deg, rgba(var(--mdui-color-surface-container-low), 1) 0%, rgba(var(--mdui-color-surface), 0.94) 65%, rgba(var(--mdui-color-surface), 1) 100%);
+    font-family: "Roboto", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    /* Use standard surface color for main background */
+    background-color: rgb(var(--mdui-color-surface));
+    /* subtle radial gradient for depth without "dirtiness" */
+    background-image: radial-gradient(circle at 50% 0%, rgba(var(--mdui-color-primary), 0.05) 0%, transparent 60%);
+    background-attachment: fixed;
     color: rgb(var(--mdui-color-on-surface));
     min-height: 100vh;
+    transition: background-color 0.5s cubic-bezier(0.2, 0, 0, 1);
+    
+    /* Material Typography Defaults */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
   }
 
   mdui-layout.app-shell {
@@ -71,16 +86,17 @@
   }
 
   .app-bar {
-    backdrop-filter: blur(8px);
-    background: linear-gradient(180deg, rgba(var(--mdui-color-surface-container-highest), 0.86) 0%, rgba(var(--mdui-color-surface), 0.9) 100%);
-    border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 0.4);
-    box-shadow: var(--mdui-elevation-level1);
+    /* More transparent, glass-like app bar */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background-color: rgba(var(--mdui-color-surface), 0.85);
+    border-bottom: 1px solid rgba(var(--mdui-color-outline-variant), 0.3);
   }
 
   .page-content {
     max-width: 1080px;
-    margin: 96px auto 48px;
-    padding: 0 24px 48px;
+    margin: 80px auto 48px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -92,6 +108,7 @@
     font-weight: var(--mdui-typescale-headline-large-weight);
     color: rgb(var(--mdui-color-on-surface));
     margin: 0;
+    letter-spacing: -0.5px;
   }
 
   .page-section {
@@ -103,20 +120,20 @@
   /* Quick links row */
   .quick-links {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     flex-wrap: wrap;
     margin-top: 8px;
   }
 
   .cards-grid {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
   /* Masonry layout styles (controlled by JS) */
   .masonry-layout {
     display: flex;
-    gap: 16px;
+    gap: 24px;
     align-items: flex-start;
   }
 
@@ -124,7 +141,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
     min-width: 0;
   }
 
@@ -132,20 +149,32 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    min-height: 200px;
+    min-height: 100px;
     padding: 24px;
-    border-radius: var(--mdui-shape-corner-large);
-    background-color: rgb(var(--mdui-color-surface-container-high));
-    box-shadow: var(--mdui-elevation-level2);
-    transition: transform 0.24s var(--mdui-motion-easing-emphasized), box-shadow 0.24s var(--mdui-motion-easing-emphasized);
+    border-radius: var(--mdui-shape-corner-extra-large);
+    /* MD3 Card Style: Surface Container + Outline or Standard Elevation */
+    background-color: rgb(var(--mdui-color-surface-container));
+    /* Add subtle border for definition in light mode */
+    border: 1px solid rgba(var(--mdui-color-outline-variant), 0.5);
+    box-shadow: none;
+    transition: all 0.4s var(--mdui-motion-easing-emphasized);
     width: 100%;
     break-inside: avoid;
     margin-bottom: 16px;
   }
 
   mdui-card.dashboard-card:hover {
-    box-shadow: var(--mdui-elevation-level4);
-    transform: translateY(-4px);
+    background-color: rgb(var(--mdui-color-surface-container-high));
+    box-shadow: var(--mdui-elevation-level3);
+    border-color: rgba(var(--mdui-color-primary), 0.2);
+    transform: scale(1.01);
+  }
+
+  /* Add touch interaction */
+  mdui-card.dashboard-card:active {
+    transform: scale(0.98);
+    background-color: rgb(var(--mdui-color-surface-container-highest));
+    transition-duration: 0.1s;
   }
 
   .card-heading {
@@ -197,9 +226,13 @@
     line-height: var(--mdui-typescale-body-small-line-height);
   }
 
-  .nav-text {
+  .nav-text, .nav-textw {
     margin: 0;
     color: rgb(var(--mdui-color-on-surface-variant));
+    font-size: var(--mdui-typescale-body-medium-size);
+    line-height: var(--mdui-typescale-body-medium-line-height);
+    font-weight: var(--mdui-typescale-body-medium-weight);
+    letter-spacing: var(--mdui-typescale-body-medium-tracking);
   }
 
   #temperature {
@@ -324,6 +357,12 @@
     background-color: rgb(var(--mdui-color-surface-container-highest));
   }
 
+  .resource-item:active {
+    transform: scale(0.96);
+    background-color: rgb(var(--mdui-color-secondary-container));
+    transition-duration: 0.1s;
+  }
+
   .resource-icon {
     font-size: 28px;
     color: rgb(var(--mdui-color-primary));
@@ -335,77 +374,100 @@
     text-align: center;
   }
 
-  /* Status card styles */
-  .status-list {
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .status-box {
+    padding: 12px;
+    border-radius: var(--mdui-shape-corner-medium);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
-  .status-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .status-icon {
-    font-size: 20px;
-    color: rgb(var(--mdui-color-on-surface-variant));
-  }
-
-  .status-icon.status-ok {
+  .status-ok-bg {
+    background-color: rgba(var(--mdui-color-primary), 0.08); /* surface-container-highest variant */
     color: rgb(var(--mdui-color-primary));
   }
 
-  .status-icon.status-maintenance {
+  .status-warn-bg {
+    background-color: rgba(var(--mdui-color-error), 0.12);
     color: rgb(var(--mdui-color-error));
+    border: 1px solid rgba(var(--mdui-color-error), 0.2);
   }
 
-  .status-label {
-    flex: 1;
+  .status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status-name {
+    font-size: var(--mdui-typescale-label-medium-size);
+    font-weight: 500;
+  }
+
+  .status-dot-icon {
+    font-size: 18px;
+  }
+
+  .status-value {
     font-size: var(--mdui-typescale-body-medium-size);
-    color: rgb(var(--mdui-color-on-surface));
-  }
-
-  .status-badge {
-    background-color: rgb(var(--mdui-color-primary-container));
-    color: rgb(var(--mdui-color-on-primary-container));
-  }
-
-  .status-time {
-    font-size: var(--mdui-typescale-body-small-size);
-    color: rgb(var(--mdui-color-on-surface-variant));
+    font-weight: 600;
   }
 
   /* Quote Card Styles */
+  .quote-card {
+    /* Revert to standard card background for consistency */
+    background-color: rgb(var(--mdui-color-surface-container));
+    color: rgb(var(--mdui-color-on-surface));
+    display: flex;
+    flex-direction: column;
+  }
+  
   .quote-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 8px 0;
+    gap: 24px;
+    padding: 8px 0 0;
+    flex: 1;
+    justify-content: space-between;
   }
   
+  /* Removed giant bg icon style */
+
   .quote-text {
     margin: 0;
-    font-size: var(--mdui-typescale-body-large-size);
-    line-height: var(--mdui-typescale-body-large-line-height);
-    font-style: italic;
+    font-size: var(--mdui-typescale-title-large-size);
+    line-height: var(--mdui-typescale-title-large-line-height);
+    font-weight: 400;
     color: rgb(var(--mdui-color-on-surface));
-    min-height: 3rem; /* Prevent layout jump */
+    /* Add quote decoration */
+    padding-left: 16px;
+    border-left: 4px solid rgb(var(--mdui-color-primary));
+  }
+
+  .quote-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
   }
 
   .quote-source {
     margin: 0;
-    text-align: right;
     font-size: var(--mdui-typescale-body-medium-size);
     color: rgb(var(--mdui-color-on-surface-variant));
   }
 
-  .card-actions {
+  /* Compact actions */
+  .quote-actions {
     display: flex;
-    justify-content: flex-end;
-    gap: 4px;
-    margin-top: 8px;
+    gap: 0; /* Button icons have their own padding */
   }
 
   /* Tool Card Styles */
@@ -515,12 +577,30 @@
     }
   }
 
+  /* Page Loader */
+  #page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: rgb(var(--mdui-color-surface));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), visibility 0.4s;
+  }
 
-
-  
+  #page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 </style>
  </head> 
  <body class="mdui-theme-auto">
+  <div id="page-loader">
+    <mdui-circular-progress></mdui-circular-progress>
+  </div>
   <mdui-layout class="app-shell">
     <mdui-top-app-bar class="app-bar"
       variant="small"
@@ -550,7 +630,7 @@
               <mdui-icon name="dashboard"></mdui-icon>
               <span>常用入口</span>
             </div>
-            <p class="nav-textw">快速访问 ecomter 的核心站点。</p>
+            <p class="nav-text">快速访问 ecomter 的核心站点。</p>
             <div class="button-stack">
               <mdui-tooltip content="访问 ecomter 的个人博客" placement="top"><mdui-button class="nav-action open-nav" variant="filled" href="https://blog.cohelper.tech" data-subtitle="即将打开博客主页，请稍候。">个人博客
                   <mdui-icon slot="icon" name="book"></mdui-icon>
@@ -612,45 +692,46 @@
           </mdui-card>
 
           <!-- 站点信息 Card -->
-          <mdui-card class="dashboard-card">
+          <mdui-card class="dashboard-card" style="justify-content: space-between;">
             <div class="card-heading">
-              <mdui-icon name="info"></mdui-icon>
-              <span>站点信息</span>
+              <mdui-icon name="dns"></mdui-icon>
+              <span>站点状态</span>
             </div>
-            <p class="nav-text">本站运行状态。</p>
-            <div class="status-list">
-              <div class="status-item">
-                <mdui-icon name="check_circle" class="status-icon status-ok"></mdui-icon>
-                <div class="status-label">
-                  <div>博客主页</div>
-                  <div class="status-time">运行正常</div>
+            
+            <div class="status-grid">
+              <div class="status-box status-ok-bg">
+                <div class="status-header">
+                  <span class="status-name">博客主页</span>
+                  <mdui-icon name="check_circle" class="status-dot-icon"></mdui-icon>
                 </div>
-                <mdui-badge variant="small" class="status-badge">在线</mdui-badge>
+                <div class="status-value">运行正常</div>
               </div>
-              <div class="status-item">
-                <mdui-icon name="build" class="status-icon status-maintenance"></mdui-icon>
-                <div class="status-label">
-                  <div>CoHelper 论坛</div>
-                  <div class="status-time">维护中</div>
+              
+              <div class="status-box status-warn-bg">
+                <div class="status-header">
+                  <span class="status-name">CoHelper 论坛</span>
+                  <mdui-icon name="build" class="status-dot-icon"></mdui-icon>
                 </div>
-                <mdui-badge variant="small" class="status-badge">维护</mdui-badge>
-              </div>
-              <div class="status-item">
-                <mdui-icon name="update" class="status-icon"></mdui-icon>
-                <div class="status-label">
-                  <div>最后更新</div>
-                  <div class="status-time" id="last-update">...</div>
-                </div>
+                <div class="status-value">维护升级中</div>
               </div>
             </div>
-<mdui-divider></mdui-divider>
-            <div class="theme-switch-section">
-              <span class="theme-label">主题切换</span>
-              <mdui-segmented-button-group class="theme-selector" selects="single">
-                <mdui-segmented-button value="auto" icon="brightness_auto" selected>自动</mdui-segmented-button>
-                <mdui-segmented-button value="light" icon="light_mode">浅色</mdui-segmented-button>
-                <mdui-segmented-button value="dark" icon="dark_mode">深色</mdui-segmented-button>
-              </mdui-segmented-button-group>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+               <div style="display: flex; flex-direction: column;">
+                 <span style="font-size: 12px; color: rgb(var(--mdui-color-on-surface-variant));">最后更新</span>
+                 <span id="last-update" style="font-size: 14px; font-weight: 500;">...</span>
+               </div>
+               
+               <div style="display: flex; gap: 8px; align-items: center;">
+                 <mdui-tooltip content="切换主题色">
+                   <mdui-button-icon icon="palette" id="btn-theme-color"></mdui-button-icon>
+                 </mdui-tooltip>
+                 <mdui-segmented-button-group class="theme-selector" selects="single" style="width: auto;">
+                  <mdui-segmented-button value="auto" icon="brightness_auto" selected title="自动"></mdui-segmented-button>
+                  <mdui-segmented-button value="light" icon="light_mode" title="浅色"></mdui-segmented-button>
+                  <mdui-segmented-button value="dark" icon="dark_mode" title="深色"></mdui-segmented-button>
+                </mdui-segmented-button-group>
+               </div>
             </div>
           </mdui-card>
 
@@ -671,19 +752,23 @@
           </mdui-card>
 
           <!-- 每日一言 Card -->
-          <mdui-card class="dashboard-card">
+          <mdui-card class="dashboard-card quote-card">
             <div class="card-heading">
               <mdui-icon name="format_quote"></mdui-icon>
               <span>每日一言</span>
             </div>
             <div class="quote-content">
               <p class="quote-text" id="card-quote-text">加载中...</p>
-              <p class="quote-source" id="card-quote-source">-- <span id="card-quote-author">...</span></p>
-            </div>
-            <mdui-divider></mdui-divider>
-            <div class="card-actions">
-              <mdui-tooltip content="复制内容"><mdui-button-icon icon="content_copy" id="btn-copy-quote"></mdui-button-icon></mdui-tooltip>
-              <mdui-tooltip content="刷新"><mdui-button-icon icon="refresh" id="btn-refresh-quote"></mdui-button-icon></mdui-tooltip>
+              
+              <div class="quote-footer">
+                <p class="quote-source">
+                   — <span id="card-quote-author">...</span>
+                </p>
+                <div class="quote-actions">
+                   <mdui-tooltip content="复制"><mdui-button-icon icon="content_copy" id="btn-copy-quote"></mdui-button-icon></mdui-tooltip>
+                   <mdui-tooltip content="换一句"><mdui-button-icon icon="refresh" id="btn-refresh-quote"></mdui-button-icon></mdui-tooltip>
+                </div>
+              </div>
             </div>
           </mdui-card>
 
@@ -774,7 +859,10 @@
           <div style="text-align: center; color: rgb(var(--mdui-color-on-surface)); line-height: 1.6; max-width: 400px;">
             <p style="margin: 0 0 12px; font-weight: bold;">欢迎来到我的数字花园 😆</p>
             <p style="margin: 0; color: rgb(var(--mdui-color-on-surface-variant)); font-size: var(--mdui-typescale-body-medium-size);">
-              这里汇集了我的博客文章、实用工具、UWP 开发项目以及系统优化心得。
+              这里汇集了我的博客文章、实用工具、UWP 开发项目以及系统优化心得。这个小站致力于分享 Windows 平台的技术折腾、开发经验。
+            </p>
+            <p style="margin: 12px 0 0; color: rgb(var(--mdui-color-on-surface-variant)); font-size: var(--mdui-typescale-body-medium-size);">
+              无论你是偶尔路过的访客，还是寻找特定解决方案的技术爱好者，都希望这里的内容能对你有所帮助。人生就是一场不断的 Debug 过程，保持好奇，享受探索。
             </p>
           </div>
           
@@ -790,6 +878,19 @@
         <mdui-button slot="action" variant="text" icon="mail--outlined" onclick="window.location.href='mailto:t1472580369@outlook.com'">反馈建议</mdui-button>
         <mdui-button slot="action" variant="filled" class="close-about">关闭</mdui-button>
       </mdui-dialog>
+
+      <!-- Color Picker Dialog -->
+      <mdui-dialog 
+        close-on-overlay-click 
+        headline="选择主题色" 
+        class="color-picker-dialog"
+        close-on-esc>
+        <div class="color-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; padding: 12px 4px; justify-items: center;">
+           <!-- Colors will be injected by JS -->
+        </div>
+        <mdui-button slot="action" variant="text" class="reset-color-picker">恢复默认</mdui-button>
+        <mdui-button slot="action" variant="text" class="close-color-picker">取消</mdui-button>
+      </mdui-dialog>
     </main>
     <mdui-fab extended class="open-about-me" id="info" icon="info--outlined">关于</mdui-fab>
     
@@ -798,7 +899,131 @@
   </mdui-layout>
   <script>
 
- mdui.setColorScheme("#" + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, "0"))
+  // Curated list of vibrant Material Design 3 colors.
+  // Removed red/orange heavy colors to ensure the "Maintenance/Error" states (usually red) stand out.
+  const materialColors = [
+    "#6750A4", // M3 Default Purple
+    "#7B1FA2", // Deep Purple
+    "#512DA8", // Dark Deep Purple
+    "#303F9F", // Indigo
+    "#1976D2", // Blue
+    "#0288D1", // Light Blue
+    "#0097A7", // Cyan
+    "#00796B", // Teal
+    "#00695C", // Dark Teal
+    "#2E7D32", // Green
+    "#388E3C", // Light Green
+    "#558B2F", // Light Green Shade
+    "#AFB42B", // Lime
+    "#FBC02D", // Yellow
+    "#FFA000", // Amber
+    "#FFB300", // Honey
+    "#5D4037", // Brown
+    "#455A64", // Blue Grey
+    "#546E7A"  // Slate
+  ];
+  
+  // Load saved color or use random
+  const savedColor = localStorage.getItem("theme-color");
+  const randomColor = materialColors[Math.floor(Math.random() * materialColors.length)];
+  const initialColor = savedColor || randomColor;
+  mdui.setColorScheme(initialColor);
+
+  // --- Color Picker Logic ---
+  const colorPickerDialog = document.querySelector(".color-picker-dialog");
+  const btnThemeColor = document.getElementById("btn-theme-color");
+  const closeColorPickerBtn = document.querySelector(".close-color-picker");
+  const resetColorPickerBtn = document.querySelector(".reset-color-picker");
+  const colorGrid = document.querySelector(".color-grid");
+
+  if (colorGrid) {
+    materialColors.forEach(color => {
+      const colorItem = document.createElement("div");
+      // Use inline flex for centering checkmark if needed, but simple circle is fine
+      colorItem.style.cssText = `
+        width: 36px; 
+        height: 36px; 
+        border-radius: 50%; 
+        background-color: ${color}; 
+        cursor: pointer; 
+        border: 2px solid transparent; 
+        transition: transform 0.2s, border-color 0.2s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      `;
+      colorItem.title = color;
+
+      // Mark active
+      if (initialColor && color.toUpperCase() === initialColor.toUpperCase()) {
+         colorItem.style.border = "2px solid rgb(var(--mdui-color-primary))";
+         colorItem.style.transform = "scale(1.1)";
+      }
+      
+      colorItem.addEventListener("click", () => {
+        mdui.setColorScheme(color);
+        localStorage.setItem("theme-color", color);
+        
+        // Visual feedback
+        Array.from(colorGrid.children).forEach(c => {
+           c.style.border = "2px solid transparent";
+           c.style.transform = "scale(1)";
+        });
+        colorItem.style.border = "2px solid rgb(var(--mdui-color-primary))";
+        colorItem.style.transform = "scale(1.1)";
+        
+        // Sync button color immediately if needed (optional)
+
+        setTimeout(() => {
+          if (colorPickerDialog) colorPickerDialog.open = false;
+        }, 200);
+      });
+      
+      colorItem.addEventListener("mouseenter", () => {
+         if (colorItem.style.borderColor === "transparent") colorItem.style.transform = "scale(1.1)";
+      });
+      colorItem.addEventListener("mouseleave", () => {
+         if (colorItem.style.borderColor === "transparent") colorItem.style.transform = "scale(1)";
+      });
+
+      colorGrid.appendChild(colorItem);
+    });
+  }
+
+  if (btnThemeColor && colorPickerDialog) {
+    btnThemeColor.addEventListener("click", () => colorPickerDialog.open = true);
+  }
+  
+  if (closeColorPickerBtn && colorPickerDialog) {
+      closeColorPickerBtn.addEventListener("click", () => colorPickerDialog.open = false);
+  }
+
+  if (resetColorPickerBtn && colorPickerDialog) {
+      resetColorPickerBtn.addEventListener("click", () => {
+        localStorage.removeItem("theme-color");
+        // Reset to system default (or first color)
+        const defaultColor = materialColors[0];
+        mdui.setColorScheme(defaultColor);
+        
+        // Clear grid selection
+        if (colorGrid) {
+            Array.from(colorGrid.children).forEach(c => {
+                c.style.border = "2px solid transparent";
+                c.style.transform = "scale(1)";
+                // Ideally check first one
+                if (c.title.toUpperCase() === defaultColor.toUpperCase()) {
+                    c.style.border = "2px solid rgb(var(--mdui-color-primary))";
+                }
+            });
+        }
+        
+        colorPickerDialog.open = false;
+        
+        const snackbar = document.querySelector(".app-snackbar");
+        if(snackbar) {
+             snackbar.textContent = "已恢复默认主题色配置 (随机模式将在下次加载生效)";
+             snackbar.open = true;
+        }
+      });
+  }
 
   // Theme selector functionality (segmented button group)
   const themeSelector = document.querySelector(".theme-selector");
@@ -818,6 +1043,10 @@
   // Update selected button in theme selector
   const updateThemeSelector = (theme) => {
     if (themeSelector) {
+      // Directly set value on the group component
+      themeSelector.value = theme;
+      
+      // Also loop through buttons to ensure visual state is consistent
       const buttons = themeSelector.querySelectorAll("mdui-segmented-button");
       buttons.forEach(btn => {
         btn.selected = btn.value === theme;
@@ -825,27 +1054,41 @@
     }
   };
 
+  // Flag to prevent snackbar on initial load
+  let isInitialThemeLoad = true;
+
   // Check localStorage for saved theme preference on load
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
     currentTheme = savedTheme;
     applyTheme(currentTheme);
-    updateThemeSelector(currentTheme);
+    // Move update call to after DOM works to ensure component readiness
+    requestAnimationFrame(() => {
+      updateThemeSelector(currentTheme);
+      // Enable snackbar notifications after initialization
+      setTimeout(() => isInitialThemeLoad = false, 300);
+    });
+  } else {
+    // Ensure default state is correctly reflected
+    requestAnimationFrame(() => {
+      updateThemeSelector("auto");
+      setTimeout(() => isInitialThemeLoad = false, 300);
+    });
   }
 
   if (themeSelector) {
     themeSelector.addEventListener("change", (e) => {
-      // Get selected value from segmented button group
-      const selectedBtn = themeSelector.querySelector("mdui-segmented-button[selected]");
-      currentTheme = selectedBtn ? selectedBtn.value : e.target.value;
+      // For selects="single", the group's value matches the selected button's value
+      currentTheme = themeSelector.value;
+      
       applyTheme(currentTheme);
       localStorage.setItem("theme", currentTheme);
       
-      // Show snackbar notification
+      // Show snackbar notification only if not initial load
       const snackbar = document.querySelector(".app-snackbar");
-      if (snackbar) {
+      if (snackbar && !isInitialThemeLoad) {
         const themeNames = { auto: "自动", light: "浅色", dark: "深色" };
-        snackbar.textContent = `已切换到${themeNames[currentTheme]}主题`;
+        snackbar.textContent = `已切换到${themeNames[currentTheme] || currentTheme}主题`;
         snackbar.open = true;
       }
     });
@@ -1180,7 +1423,16 @@
   });
   
   // Run on load
-  window.addEventListener('load', initMasonry);
+  window.addEventListener('load', () => {
+    initMasonry();
+    const loader = document.getElementById("page-loader");
+    if (loader) {
+      // Small delay to ensure smooth first paint
+      setTimeout(() => {
+        loader.classList.add("hidden");
+      }, 500);
+    }
+  });
   initMasonry(); // Also run immediately
 
    </script>
@@ -1268,7 +1520,7 @@
   </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6393990555447663"
      crossorigin="anonymous"></script>
-<script src="https://unpkg.com/sm-crypto@0.4.0/dist/sm4.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="lib/sm-crypto.js"></script>
+<script src="lib/crypto-js.min.js"></script>
 </body>
 </html>
