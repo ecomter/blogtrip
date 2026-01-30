@@ -4,7 +4,8 @@
 <head> 
   <meta name="google-adsense-account" content="ca-pub-6393990555447663">
   <meta charset="utf-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+  <!-- Adjusted viewport scale to 0.85 for mobile devices as requested -->
+  <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=5, shrink-to-fit=no"/>
   <meta name="renderer" content="webkit"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <link rel="stylesheet" href="mdui/mdui.css">
@@ -168,6 +169,11 @@
     box-shadow: var(--mdui-elevation-level3);
     border-color: rgba(var(--mdui-color-primary), 0.2);
     transform: scale(1.01);
+  }
+
+  /* Disable transform on interactive cards to reduce motion sickness/annoyance */
+  mdui-card.dashboard-card.static-card:hover {
+    transform: none;
   }
 
   /* Add touch interaction */
@@ -660,7 +666,7 @@
                   eComBox
                 </h3>
                 <p class="project-desc">eComBox 是一个 UWP 工具箱，内含日期倒计时、三角形计算器、连续翻译等实用功能，并正逐步引入 AI 辅助功能。</p>
-                <mdui-button class="nav-action open-nav" variant="tonal" data-target-url="https://github.com/ecomter/eComBox" data-subtitle="正在前往 GitHub：eComBox，请稍候加载仓库。">访问仓库
+                <mdui-button class="nav-action" variant="tonal" href="https://github.com/ecomter/eComBox" target="_blank">访问仓库
                   <mdui-icon slot="icon" name="code"></mdui-icon>
                   <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
                 </mdui-button>
@@ -671,7 +677,7 @@
                   快速修复 Windows 系统
                 </h3>
                 <p class="project-desc">博客文章：在无硬件故障、可以正常引导系统、可以连接到互联网的 Windows 8 及以上系统使用 Dism 和 SFC 修复 Windows 系统</p>
-                <mdui-button class="nav-action open-nav" variant="tonal" data-target-url="https://blog.cohelper.tech/259/" data-subtitle="正在前往博客，请稍候。">访问文章
+                <mdui-button class="nav-action" variant="tonal" href="https://blog.cohelper.tech/259/" target="_blank">访问文章
                   <mdui-icon slot="icon" name="data_object"></mdui-icon>
                   <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
                 </mdui-button>
@@ -682,7 +688,7 @@
                   Azure 机器 Windows Server 升级到 Windows 11 方法
                 </h3>
                 <p class="project-desc">预计消耗时长：3-4 小时。前些时间我本想用 WSL 的镜像网络搭建一些服务，但是由于 VM 是无 SKU 的 Windows Server 系统，WSL 暂不支持，并且 Windows Server 上使用 Visual Studio 开发 UWP 略有点困难，所以我在想办法将其 "升级" 到 Windows 11。</p>
-                <mdui-button class="nav-action open-nav" variant="tonal" data-target-url="https://blog.cohelper.tech/161/" data-subtitle="正在前往博客，请稍候。">访问文章
+                <mdui-button class="nav-action" variant="tonal" href="https://blog.cohelper.tech/161/" target="_blank">访问文章
                   <mdui-icon slot="icon" name="article"></mdui-icon>
                   <mdui-icon slot="end-icon" name="open_in_new"></mdui-icon>
                 </mdui-button>
@@ -773,10 +779,10 @@
           </mdui-card>
 
           <!-- 国密工具 Card -->
-          <mdui-card class="dashboard-card">
+          <mdui-card class="dashboard-card static-card">
             <div class="card-heading">
               <mdui-icon name="security"></mdui-icon>
-              <span>加密工具箱</span>
+              <span>哈希与加密工具</span>
             </div>
             <div class="tool-inputs">
               <mdui-text-field variant="outlined" label="输入内容 / 密文" id="tool-input" autosize min-rows="2" max-rows="5"></mdui-text-field>
@@ -1247,64 +1253,8 @@
     });
   }
     
-  const navDialog = document.querySelector(".nav-loading-dialog");
-  const navButtons = document.querySelectorAll(".open-nav");
-  const cancelNavButton = navDialog?.querySelector(".cancel-navigation");
-  const hitokotoText = document.getElementById("hitokoto_text");
-  const loadingSubtitle = document.getElementById("loading_subtitle");
-  let navigationTimer = null;
-
-  if (hitokotoText) {
-    fetch('https://v1.hitokoto.cn')
-      .then(response => response.json())
-      .then(data => {
-        hitokotoText.href = `https://hitokoto.cn/?uuid=${data.uuid}`;
-        hitokotoText.innerText = data.hitokoto;
-      })
-      .catch(console.error);
-  }
-
-  if (navDialog && navButtons.length > 0) {
-    navButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-  const targetUrl = button.getAttribute("href") || button.getAttribute("data-target-url");
-        const subtitle = button.getAttribute("data-subtitle");
-        if (!targetUrl) {
-          return;
-        }
-        if (loadingSubtitle && subtitle) {
-          loadingSubtitle.textContent = subtitle;
-        }
-        navDialog.open = true;
-        if (navigationTimer) {
-          clearTimeout(navigationTimer);
-        }
-        navigationTimer = setTimeout(() => {
-          window.location.href = targetUrl;
-        }, 600);
-      });
-    });
-  }
-
-  if (navDialog && cancelNavButton) {
-    cancelNavButton.addEventListener("click", () => {
-      navDialog.open = false;
-      if (navigationTimer) {
-        clearTimeout(navigationTimer);
-        navigationTimer = null;
-      }
-    });
-  }
-
-  if (navDialog) {
-    navDialog.addEventListener("close", () => {
-      if (navigationTimer) {
-        clearTimeout(navigationTimer);
-        navigationTimer = null;
-      }
-    });
-  }
+  // Navigation interception removed to improve SEO and prevent crawler issues.
+  // Links now use standard href attributes for direct navigation.
 
   const dialogAb = document.querySelector(".about-me");
   const openButtonAb = document.querySelector(".open-about-me");
